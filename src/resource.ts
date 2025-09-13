@@ -7,24 +7,20 @@ class Resources {
   constructor() {
     this.images = {};
     this.toLoad = {
-      ground: "/sprites/ground.png",
-      sky: "/sprites/sky.png",
+      ground: "sprites/ground.png",
+      sky: "sprites/sky.png",
     }
 
-    Object.keys((key: string) => {
+    Object.keys(this.toLoad).forEach((key: string) => {
       const image = new Image();
       image.src = this.toLoad[key];
       this.images[key] = { image, loaded: false };
 
       image.onload = () => {
         this.images[key].loaded = true;
-        console.log(`Loaded ${key}`);
+        console.info(`Loaded ${key}`);
       }
-
-      image.onerror = () => {
-        console.error(`Failed to load ${key}`);
-      }
-    })
+    });
   }
 }
 
