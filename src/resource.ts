@@ -8,7 +8,11 @@ class Resources {
     this.images = {};
     this.toLoad = {
       ground: "sprites/ground.png",
+      hero: "sprites/hero-sheet.png",
+      rod: "sprites/rod.png",
+      shadow: "sprites/shadow.png",
       sky: "sprites/sky.png",
+      spritesheet: "sprites/spritesheet.png",
     }
 
     Object.keys(this.toLoad).forEach((key: string) => {
