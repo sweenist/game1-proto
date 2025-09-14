@@ -1,4 +1,4 @@
-type ImageResource = { image: HTMLImageElement, loaded: boolean };
+export type ImageResource = { image: HTMLImageElement, loaded: boolean };
 
 class Resources {
   public toLoad: { [key: string]: string };
