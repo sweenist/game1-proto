@@ -4,6 +4,7 @@ import { resources } from './resource';
 import { Sprite } from './sprite';
 import { Vector2 } from './utils/vector';
 import { GameLoop } from './gameloop';
+import { DOWN, GameInput, LEFT, RIGHT, UP } from './gameInput';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -31,8 +32,25 @@ const shadow = new Sprite({
 });
 
 const heroPosition = new Vector2(16 * 6, 16 * 5);
+const input = new GameInput();
 
 const update = (timeStep: number) => {
+  if (input.direction === UP) {
+    heroPosition.y -= 1;
+    hero.frameIndex = 7
+  }
+  if (input.direction === DOWN) {
+    heroPosition.y += 1;
+    hero.frameIndex = 1;
+  }
+  if (input.direction === LEFT) {
+    heroPosition.x -= 1;
+    hero.frameIndex = 10;
+  }
+  if (input.direction === RIGHT) {
+    heroPosition.x += 1;
+    hero.frameIndex = 4;
+  }
 }
 
 const draw = () => {
