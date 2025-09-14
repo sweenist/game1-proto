@@ -5,35 +5,39 @@ export const DOWN = "DOWN";
 
 export class GameInput {
   directions: string[] = [];
+  debugMessage: string = "";
 
   constructor() {
     document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowUp" || e.key === "KeyW") {
+      if (e.key === "ArrowUp" || e.key === "w") {
         this.onArrowPressed(UP);
       }
-      if (e.key === "ArrowDown" || e.key === "KeyS") {
+      if (e.key === "ArrowDown" || e.key === "s") {
         this.onArrowPressed(DOWN);
       }
-      if (e.key === "ArrowLeft" || e.key === "KeyA") {
+      if (e.key === "ArrowLeft" || e.key === "a") {
         this.onArrowPressed(LEFT);
       }
-      if (e.key === "ArrowRight" || e.key === "KeyD") {
+      if (e.key === "ArrowRight" || e.key === "d") {
         this.onArrowPressed(RIGHT);
+      }
+      if (e.key === " ") {
+        this.printDebug();
       }
     });
 
 
     document.addEventListener("keyup", (e) => {
-      if (e.key === "ArrowUp" || e.key === "KeyW") {
+      if (e.key === "ArrowUp" || e.key === "w") {
         this.onArrowReleased(UP);
       }
-      if (e.key === "ArrowDown" || e.key === "KeyS") {
+      if (e.key === "ArrowDown" || e.key === "s") {
         this.onArrowReleased(DOWN);
       }
-      if (e.key === "ArrowLeft" || e.key === "KeyA") {
+      if (e.key === "ArrowLeft" || e.key === "a") {
         this.onArrowReleased(LEFT);
       }
-      if (e.key === "ArrowRight" || e.key === "KeyD") {
+      if (e.key === "ArrowRight" || e.key === "d") {
         this.onArrowReleased(RIGHT);
       }
     });
@@ -52,5 +56,9 @@ export class GameInput {
     if (index > -1) {
       this.directions.splice(index, 1);
     }
+  }
+
+  printDebug() {
+    console.debug(this.debugMessage);
   }
 }

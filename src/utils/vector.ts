@@ -6,4 +6,8 @@ export class Vector2 {
     this.x = x;
     this.y = y;
   }
+
+  public toString(): string {
+    return `X: ${this.x}, Y: ${this.y}`;
+  }
 }

@@ -4,13 +4,13 @@ import { DOWN, GameInput, LEFT, RIGHT, UP } from '../gameInput';
 describe('gameInput', () => {
   const testCases = [
     { key: 'ArrowUp', expectedDirection: UP },
-    { key: 'KeyW', expectedDirection: UP },
+    { key: 'w', expectedDirection: UP },
     { key: 'ArrowDown', expectedDirection: DOWN },
-    { key: 'KeyS', expectedDirection: DOWN },
+    { key: 's', expectedDirection: DOWN },
     { key: 'ArrowLeft', expectedDirection: LEFT },
-    { key: 'KeyA', expectedDirection: LEFT },
+    { key: 'a', expectedDirection: LEFT },
     { key: 'ArrowRight', expectedDirection: RIGHT },
-    { key: 'KeyD', expectedDirection: RIGHT },
+    { key: 'd', expectedDirection: RIGHT },
   ];
   it.each(testCases)('should have direction $expectedDirection when $key is pressed', ({ key, expectedDirection }) => {
     const input = new GameInput();
@@ -25,10 +25,10 @@ describe('gameInput', () => {
   it.each(testCases)('should remove $expectedDirection when releasing $key', ({ key, expectedDirection }) => {
     const input = new GameInput();
 
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'KeyW' }));
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'KeyA' }));
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'KeyS' }));
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'KeyD' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'w' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 's' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'd' }));
 
     expect(input.directions.length).toBe(4);
 

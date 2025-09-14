@@ -25,32 +25,33 @@ const hero = new Sprite({
   frameColumns: 3,
   frameRows: 8,
   frameIndex: 1,
+  position: new Vector2(16 * 6 - 8, 16 * 5 - 20),
 });
 const shadow = new Sprite({
   resource: resources.images.shadow,
   frameSize: new Vector2(32, 32),
 });
 
-const heroPosition = new Vector2(16 * 6, 16 * 5);
 const input = new GameInput();
 
 const update = (timeStep: number) => {
   if (input.direction === UP) {
-    heroPosition.y -= 1;
+    hero.position.y -= 1;
     hero.frameIndex = 7
   }
   if (input.direction === DOWN) {
-    heroPosition.y += 1;
+    hero.position.y += 1;
     hero.frameIndex = 1;
   }
   if (input.direction === LEFT) {
-    heroPosition.x -= 1;
+    hero.position.x -= 1;
     hero.frameIndex = 10;
   }
   if (input.direction === RIGHT) {
-    heroPosition.x += 1;
+    hero.position.x += 1;
     hero.frameIndex = 4;
   }
+  input.debugMessage = `Hero => pos:${hero.position}; frame: ${hero.frameIndex}`;
 }
 
 const draw = () => {
@@ -58,13 +59,8 @@ const draw = () => {
   sky.draw(ctx, 0, 0);
   ground.draw(ctx, 0, 0);
 
-  //foreground sprites
-  const heroOffset = new Vector2(-8, -20);
-  const heroPosX = heroPosition.x + heroOffset.x;
-  const heroPosY = heroPosition.y + heroOffset.y;
-
-  shadow.draw(ctx, heroPosX, heroPosY);
-  hero.draw(ctx, heroPosX, heroPosY);
+  shadow.draw(ctx, hero.position.x, hero.position.y);
+  hero.draw(ctx, hero.position.x, hero.position.y);
 }
 
 const gameLoop = new GameLoop(update, draw);
