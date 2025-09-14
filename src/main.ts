@@ -3,6 +3,7 @@ import './style.css'
 import { resources } from './resource';
 import { Sprite } from './sprite';
 import { Vector2 } from './utils/vector';
+import { GameLoop } from './gameloop';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -31,6 +32,9 @@ const shadow = new Sprite({
 
 const heroPosition = new Vector2(16 * 6, 16 * 5);
 
+const update = (timeStep: number) => {
+}
+
 const draw = () => {
   //background first
   sky.draw(ctx, 0, 0);
@@ -45,6 +49,5 @@ const draw = () => {
   hero.draw(ctx, heroPosX, heroPosY);
 }
 
-setInterval(() => {
-  draw();
-}, 250);
+const gameLoop = new GameLoop(update, draw);
+gameLoop.start();
