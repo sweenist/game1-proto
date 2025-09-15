@@ -38,7 +38,7 @@ let destinationTarget = hero.position.duplicate();
 const input = new GameInput();
 
 const update = (timeStep: number) => {
-  const distance = moveTowards(hero, destinationTarget, 1);
+  const distance = moveTowards(hero.position, destinationTarget, 1);
   const hasArrived = distance < 1;
   if (hasArrived) {
     tryMove();
