@@ -5,6 +5,8 @@ import { Sprite } from './sprite';
 import { Vector2 } from './utils/vector';
 import { GameLoop } from './gameloop';
 import { DOWN, GameInput, LEFT, RIGHT, UP } from './gameInput';
+import { gridCells } from './utils/grid';
+import { moveTowards } from './utils/moveUtils';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -25,32 +27,51 @@ const hero = new Sprite({
   frameColumns: 3,
   frameRows: 8,
   frameIndex: 1,
-  position: new Vector2(16 * 6 - 8, 16 * 5 - 20),
+  position: new Vector2(gridCells(6), gridCells(5)),
 });
 const shadow = new Sprite({
   resource: resources.images.shadow,
   frameSize: new Vector2(32, 32),
 });
 
+let destinationTarget = hero.position.duplicate();
 const input = new GameInput();
 
 const update = (timeStep: number) => {
+  const distance = moveTowards(hero, destinationTarget, 1);
+  const hasArrived = distance < 1;
+  if (hasArrived) {
+    tryMove();
+  }
+  return;
+
+}
+
+const tryMove = () => {
+  if (!input.direction) return;
+
+  let nextX = destinationTarget.x;
+  let nextY = destinationTarget.y;
+  const gridSize = 16;
+
   if (input.direction === UP) {
-    hero.position.y -= 1;
+    nextY -= gridSize;
     hero.frameIndex = 7
   }
   if (input.direction === DOWN) {
-    hero.position.y += 1;
+    nextY += gridSize;
     hero.frameIndex = 1;
   }
   if (input.direction === LEFT) {
-    hero.position.x -= 1;
+    nextX -= gridSize;
     hero.frameIndex = 10;
   }
   if (input.direction === RIGHT) {
-    hero.position.x += 1;
+    nextX += gridSize;
     hero.frameIndex = 4;
   }
+
+  destinationTarget = new Vector2(nextX, nextY);
   input.debugMessage = `Hero => pos:${hero.position}; frame: ${hero.frameIndex}`;
 }
 
@@ -59,8 +80,10 @@ const draw = () => {
   sky.draw(ctx, 0, 0);
   ground.draw(ctx, 0, 0);
 
-  shadow.draw(ctx, hero.position.x, hero.position.y);
-  hero.draw(ctx, hero.position.x, hero.position.y);
+  const heroOffset = new Vector2(-8, -21);
+
+  shadow.draw(ctx, hero.position.x + heroOffset.x, hero.position.y + heroOffset.y);
+  hero.draw(ctx, hero.position.x + heroOffset.x, hero.position.y + heroOffset.y);
 }
 
 const gameLoop = new GameLoop(update, draw);

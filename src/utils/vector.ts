@@ -7,6 +7,10 @@ export class Vector2 {
     this.y = y;
   }
 
+  duplicate() {
+    return new Vector2(this.x, this.y);
+  }
+
   public toString(): string {
     return `X: ${this.x}, Y: ${this.y}`;
   }
