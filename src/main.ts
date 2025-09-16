@@ -5,8 +5,9 @@ import { Sprite } from './sprite';
 import { Vector2 } from './utils/vector';
 import { GameLoop } from './gameloop';
 import { DOWN, GameInput, LEFT, RIGHT, UP } from './gameInput';
-import { gridCells } from './utils/grid';
+import { gridCells, isSpaceFree } from './utils/grid';
 import { moveTowards } from './utils/moveUtils';
+import { walls } from './levels/level1';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -52,6 +53,7 @@ const tryMove = () => {
 
   let nextX = destinationTarget.x;
   let nextY = destinationTarget.y;
+
   const gridSize = 16;
 
   if (input.direction === UP) {
@@ -71,6 +73,8 @@ const tryMove = () => {
     hero.frameIndex = 4;
   }
 
+  if (!isSpaceFree(walls, nextX, nextY))
+    return;
   destinationTarget = new Vector2(nextX, nextY);
   input.debugMessage = `Hero => pos:${hero.position}; frame: ${hero.frameIndex}`;
 }
