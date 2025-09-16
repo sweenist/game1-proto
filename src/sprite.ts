@@ -1,3 +1,4 @@
+import type { animationConfiguration } from "./actors/heroAnimations";
 import type { ImageResource } from "./resource";
 import { Vector2 } from "./utils/vector";
 
@@ -9,6 +10,7 @@ export interface SpriteParams {
   frameIndex?: number;
   scale?: number;
   position?: Vector2;
+  animation?: animationConfiguration;
 }
 
 export class Sprite {
@@ -20,6 +22,7 @@ export class Sprite {
   frameMap: Map<number, Vector2> = new Map();
   scale: number;
   position: Vector2;
+  animation?: animationConfiguration | null;
 
   constructor(params: SpriteParams) {
     this.resource = params.resource;
@@ -29,6 +32,8 @@ export class Sprite {
     this.frameIndex = params.frameIndex ?? 0;
     this.scale = params.scale ?? 1;
     this.position = params.position ?? new Vector2(0, 0);
+    this.animation = params.animation;
+
     this.buildFrameMap();
   }
 
@@ -41,6 +46,12 @@ export class Sprite {
         index++;
       }
     }
+  }
+
+  step(deltaTime: number) {
+    if (!this.animation) return;
+
+    //TODO. implement
   }
 
   draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
