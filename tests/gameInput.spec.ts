@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { DOWN, GameInput, LEFT, RIGHT, UP } from '../src/gameInput';
 
 describe('gameInput', () => {
@@ -36,5 +36,17 @@ describe('gameInput', () => {
     document.dispatchEvent(event);
 
     expect(input.directions).not.toContain(expectedDirection);
-  })
+  });
+
+  it('should display a debug message when space is pressed', () => {
+    const target = new GameInput();
+    target.debugMessage = "test message"
+
+    const debugSpy = vi.spyOn(target, "printDebug");
+    const consoleSpy = vi.spyOn(console, "debug");
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+
+    expect(debugSpy).toHaveBeenCalledOnce();
+    expect(consoleSpy).toHaveBeenCalledWith(target.debugMessage);
+  });
 });
