@@ -8,6 +8,9 @@ import { DOWN, GameInput, LEFT, RIGHT, UP } from './gameInput';
 import { gridCells, isSpaceFree } from './utils/grid';
 import { moveTowards } from './utils/moveUtils';
 import { walls } from './levels/level1';
+import { FrameIndexPattern } from './FrameIndexPattern';
+import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT } from './actors/heroAnimations';
+import { Animations } from './Animations';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -29,6 +32,12 @@ const hero = new Sprite({
   frameRows: 8,
   frameIndex: 1,
   position: new Vector2(gridCells(6), gridCells(5)),
+  animations: new Animations({
+    walkDown: new FrameIndexPattern(WALK_DOWN),
+    walkUp: new FrameIndexPattern(WALK_UP),
+    walkLeft: new FrameIndexPattern(WALK_LEFT),
+    walkRight: new FrameIndexPattern(WALK_RIGHT),
+  })
 });
 const shadow = new Sprite({
   resource: resources.images.shadow,
@@ -38,13 +47,16 @@ const shadow = new Sprite({
 let destinationTarget = hero.position.duplicate();
 const input = new GameInput();
 
-const update = (timeStep: number) => {
+const update = (deltaTime: number) => {
   const distance = moveTowards(hero.position, destinationTarget, 1);
   const hasArrived = distance < 1;
   if (hasArrived) {
     tryMove();
   }
+
+  hero.step(deltaTime);
   return;
+
 
 }
 

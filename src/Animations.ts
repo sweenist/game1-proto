@@ -1,6 +1,6 @@
 import type { FrameIndexPattern } from "./FrameIndexPattern";
 
-export class Animation {
+export class Animations {
   patterns: { [key: string]: FrameIndexPattern }
   activeKey: string;
 
