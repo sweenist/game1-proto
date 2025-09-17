@@ -13,6 +13,13 @@ export class Animations {
     return this.patterns[this.activeKey].frame
   }
 
+  play(key: string, startAtTime: number = 0) {
+    if (key === this.activeKey) return;
+
+    this.activeKey = key;
+    this.patterns[this.activeKey].currentTime = startAtTime;
+  }
+
   step(deltaTime: number) {
     this.patterns[this.activeKey].step(deltaTime);
   }

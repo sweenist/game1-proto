@@ -9,8 +9,9 @@ import { gridCells, isSpaceFree } from './utils/grid';
 import { moveTowards } from './utils/moveUtils';
 import { walls } from './levels/level1';
 import { FrameIndexPattern } from './FrameIndexPattern';
-import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT } from './actors/heroAnimations';
+import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_LEFT, STAND_RIGHT, STAND_UP } from './actors/heroAnimations';
 import { Animations } from './Animations';
+import { toTitleCase } from './utils/stringUtils';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -37,14 +38,20 @@ const hero = new Sprite({
     walkUp: new FrameIndexPattern(WALK_UP),
     walkLeft: new FrameIndexPattern(WALK_LEFT),
     walkRight: new FrameIndexPattern(WALK_RIGHT),
+    standDown: new FrameIndexPattern(STAND_DOWN),
+    standUp: new FrameIndexPattern(STAND_UP),
+    standLeft: new FrameIndexPattern(STAND_LEFT),
+    standRight: new FrameIndexPattern(STAND_RIGHT),
   })
 });
+
 const shadow = new Sprite({
   resource: resources.images.shadow,
   frameSize: new Vector2(32, 32),
 });
 
 let destinationTarget = hero.position.duplicate();
+let heroFacing = DOWN;
 const input = new GameInput();
 
 const update = (deltaTime: number) => {
@@ -61,7 +68,10 @@ const update = (deltaTime: number) => {
 }
 
 const tryMove = () => {
-  if (!input.direction) return;
+  if (!input.direction) {
+    hero.animations?.play("stand".concat(toTitleCase(heroFacing)));
+    return;
+  }
 
   let nextX = destinationTarget.x;
   let nextY = destinationTarget.y;
@@ -70,20 +80,22 @@ const tryMove = () => {
 
   if (input.direction === UP) {
     nextY -= gridSize;
-    hero.frameIndex = 7
+    hero.animations?.play("walkUp");
   }
   if (input.direction === DOWN) {
     nextY += gridSize;
-    hero.frameIndex = 1;
+    hero.animations?.play("walkDown");
   }
   if (input.direction === LEFT) {
     nextX -= gridSize;
-    hero.frameIndex = 10;
+    hero.animations?.play("walkLeft");
   }
   if (input.direction === RIGHT) {
     nextX += gridSize;
-    hero.frameIndex = 4;
+    hero.animations?.play("walkRight");
   }
+
+  heroFacing = input.direction ?? heroFacing;
 
   if (!isSpaceFree(walls, nextX, nextY))
     return;
