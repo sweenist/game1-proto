@@ -32,6 +32,7 @@ const makeAnimationFrames = (rootFrame: number, duration: number = 400): animati
     ]
   }
 }
+
 const makeStandingFrames = (rootFrame: number, duration: number = 400): animationConfiguration => {
   return {
     duration,

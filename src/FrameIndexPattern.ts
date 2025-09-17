@@ -14,9 +14,10 @@ export class FrameIndexPattern {
   get frame() {
     const { frames } = this.animationConfiguration;
     for (let i = frames.length - 1; i >= 0; i--) {
-      if (this.currentTime >= frames[i].time)
+      if (this.currentTime >= frames[i].time) {
         console.debug(`Current: ${this.currentTime}, index: ${i}, Frame TIme: ${frames[i].time}`)
         return frames[i].frame;
+      }
     }
     throw "Time is before keyframe";
   }
