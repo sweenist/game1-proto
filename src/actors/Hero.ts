@@ -19,6 +19,7 @@ export class Hero extends GameObject {
   shadow: Sprite;
 
   constructor(x: number, y: number) {
+    console.debug("hero x,y", x, y);
     super(new Vector2(x, y));
     this.shadow = new Sprite({
       resource: resources.images.shadow,
@@ -33,7 +34,7 @@ export class Hero extends GameObject {
       frameColumns: 3,
       frameRows: 8,
       frameIndex: 1,
-      position: new Vector2(gridCells(6), -21),
+      position: new Vector2(-8, -21),
       animations: new Animations({
         walkDown: new FrameIndexPattern(WALK_DOWN),
         walkUp: new FrameIndexPattern(WALK_UP),
@@ -50,6 +51,8 @@ export class Hero extends GameObject {
 
     this.facingDirection = DOWN;
     this.destinationPosition = this.position.duplicate();
+    console.debug("positions:", this.position, "dest", this.destinationPosition);
+
   }
 
   step(_deltaTime: number, root: Scene) {
@@ -91,11 +94,10 @@ export class Hero extends GameObject {
     }
 
     this.facingDirection = input.direction ?? this.facingDirection;
-
+    console.debug("Walls?", nextX, nextY);
     if (!isSpaceFree(walls, nextX, nextY))
       return;
     this.destinationPosition = new Vector2(nextX, nextY);
-    input.debugMessage = `Hero => pos:${this.body.position}; destination: ${this.destinationPosition}; frame: ${this.body.frameIndex}`;
+    input.debugMessage = `Hero => pos:${this.body.position}|${this.position}; destination: ${this.destinationPosition}; frame: ${this.body.frameIndex}`;
   }
-
 }

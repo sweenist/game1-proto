@@ -15,7 +15,7 @@ export class GameObject {
     this.step(deltaTime, root);
   }
 
-  step(deltaTime: number, root?: Scene) {
+  step(_deltaTime: number, _root?: Scene) {
     // override
   }
 
@@ -28,8 +28,8 @@ export class GameObject {
     this.children.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
-
+  drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number) {
+    // override
   }
 
   addChild(gameObject: GameObject) {
