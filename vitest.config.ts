@@ -15,6 +15,7 @@ export default defineConfig({
     coverage: {
       exclude: [
         'src/levels/**',
+        'src/*.ts',
         'vite*.ts',
         '**/*.d.ts'
       ]
