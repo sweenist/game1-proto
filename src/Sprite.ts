@@ -1,5 +1,5 @@
 import { Animations } from "./Animations";
-import type { ImageResource } from "./resource";
+import type { ImageResource } from "./Resources";
 import { Vector2 } from "./utils/vector";
 
 export interface SpriteParams {

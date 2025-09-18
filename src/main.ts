@@ -1,10 +1,10 @@
 import './style.css'
 
-import { resources } from './resource';
-import { Sprite } from './sprite';
+import { resources } from './Resources';
+import { Sprite } from './Sprite';
 import { Vector2 } from './utils/vector';
-import { GameLoop } from './gameloop';
-import { DOWN, GameInput, LEFT, RIGHT, UP } from './gameInput';
+import { GameLoop } from './Gameloop';
+import { DOWN, GameInput, LEFT, RIGHT, UP } from './GameInput';
 import { gridCells, isSpaceFree } from './utils/grid';
 import { moveTowards } from './utils/moveUtils';
 import { walls } from './levels/level1';

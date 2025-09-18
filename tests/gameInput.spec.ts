@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { DOWN, GameInput, LEFT, RIGHT, UP } from '@src/gameInput';
+import { DOWN, GameInput, LEFT, RIGHT, UP } from '@src/GameInput';
 
 describe('gameInput', () => {
   const testCases = [
