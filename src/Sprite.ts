@@ -1,4 +1,5 @@
 import { Animations } from "./Animations";
+import { GameObject } from "./GameObject";
 import type { ImageResource } from "./Resources";
 import { Vector2 } from "./utils/vector";
 
@@ -13,7 +14,7 @@ export interface SpriteParams {
   animations?: Animations;
 }
 
-export class Sprite {
+export class Sprite extends GameObject {
   resource: ImageResource;
   frameSize: Vector2;
   frameColumns: number;
@@ -21,20 +22,20 @@ export class Sprite {
   frameIndex: number;
   frameMap: Map<number, Vector2> = new Map();
   scale: number;
-  position: Vector2;
   animations?: Animations | null;
 
   constructor(params: SpriteParams) {
+    super(params.position);
     this.resource = params.resource;
     this.frameSize = params.frameSize ?? new Vector2(16, 16);
     this.frameColumns = params.frameColumns ?? 1;
     this.frameRows = params.frameRows ?? 1;
     this.frameIndex = params.frameIndex ?? 0;
     this.scale = params.scale ?? 1;
-    this.position = params.position ?? new Vector2(0, 0);
     this.animations = params.animations;
 
     this.buildFrameMap();
+
   }
 
   buildFrameMap() {
