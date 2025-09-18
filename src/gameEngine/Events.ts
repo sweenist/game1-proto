@@ -26,9 +26,13 @@ class Events {
   }
 
   emit(eventName: string, value: object | null) {
-    const subscription = this.subscriptions.find((sub) => sub.eventName === eventName);
-    return subscription?.callback(value);
+    const subscription = this.subscriptions.forEach((sub) => {
+      if (sub.eventName === eventName) {
+        sub.callback(value);
+      }
+    }
   }
+
 
   unsubscribe(caller: string) {
     this.subscriptions = this.subscriptions.filter((sub) => sub.caller !== caller);
