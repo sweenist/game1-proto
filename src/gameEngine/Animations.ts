@@ -1,4 +1,4 @@
-import type { FrameIndexPattern } from "./FrameIndexPattern";
+import type { FrameIndexPattern } from './FrameIndexPattern';
 
 export class Animations {
   patterns: { [key: string]: FrameIndexPattern }

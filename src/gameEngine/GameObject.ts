@@ -1,5 +1,5 @@
-import type { Scene } from "./Scene";
-import { Vector2 } from "./utils/vector";
+import type { Scene } from './Scene';
+import { Vector2 } from '../utils/vector';
 
 export class GameObject {
   children: GameObject[] = [];

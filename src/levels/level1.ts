@@ -1,4 +1,4 @@
-import { Vector2 } from "../utils/vector";
+import { Vector2 } from '../utils/vector';
 
 export const walls = new Set<string>(); // use a value type... like string yuck
 

@@ -1,11 +1,11 @@
 import './style.css'
 
 import { resources } from './Resources';
-import { Sprite } from './Sprite';
+import { Sprite } from './gameEngine/Sprite';
 import { Vector2 } from './utils/vector';
-import { GameLoop } from './Gameloop';
-import { GameInput } from './GameInput';
-import { Scene } from './Scene';
+import { GameLoop } from './gameEngine/GameLoop';
+import { GameInput } from './gameEngine/GameInput';
+import { Scene } from './gameEngine/Scene';
 import { Hero } from './actors/Hero';
 import { gridCells } from './utils/grid';
 

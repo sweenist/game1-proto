@@ -1,7 +1,7 @@
-import { Animations } from "./Animations";
-import { GameObject } from "./GameObject";
-import type { ImageResource } from "./Resources";
-import { Vector2 } from "./utils/vector";
+import { Animations } from './Animations';
+import { GameObject } from './GameObject';
+import type { ImageResource } from '../Resources';
+import { Vector2 } from '../utils/vector';
 
 export interface SpriteParams {
   resource: ImageResource;

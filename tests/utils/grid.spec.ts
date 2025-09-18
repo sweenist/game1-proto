@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest';
 import { gridCells, isSpaceFree } from '@src/utils/grid';
-import { Vector2 } from "@src/utils/vector";
+import { Vector2 } from '@src/utils/vector';
 
 describe('grid.ts', () => {
   describe('gridCells', () => {

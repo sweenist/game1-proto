@@ -1,5 +1,5 @@
-import { toTitleCase } from "@src/utils/stringUtils"
-import { describe, expect, it } from "vitest"
+import { toTitleCase } from '@src/utils/stringUtils'
+import { describe, expect, it } from 'vitest'
 
 describe('stringUtils', () => {
   describe('toTitleCase', () => {

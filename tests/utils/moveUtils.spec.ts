@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { moveTowards } from "@src/utils/moveUtils";
-import { Vector2 } from "@src/utils/vector";
+import { describe, it, expect } from 'vitest';
+import { moveTowards } from '@src/utils/moveUtils';
+import { Vector2 } from '@src/utils/vector';
 
 describe("moveTowards", () => {
   it("moves actor directly to destination if within speed (distance < speed)", () => {

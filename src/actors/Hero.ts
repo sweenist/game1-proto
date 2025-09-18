@@ -1,16 +1,16 @@
-import { Animations } from "../Animations";
-import { FrameIndexPattern } from "../FrameIndexPattern";
-import { DOWN, LEFT, RIGHT, UP } from "../GameInput";
-import { GameObject } from "../GameObject";
-import { walls } from "../levels/level1";
-import { resources } from "../Resources";
-import { Sprite } from "../Sprite";
-import { isSpaceFree } from "../utils/grid";
-import { toTitleCase } from "../utils/stringUtils";
-import { Vector2 } from "../utils/vector";
-import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./heroAnimations";
-import { moveTowards } from "../utils/moveUtils";
-import type { Scene } from "../Scene";
+import { Animations } from '../gameEngine/Animations';
+import { FrameIndexPattern } from '../gameEngine/FrameIndexPattern';
+import { DOWN, LEFT, RIGHT, UP } from '../gameEngine/GameInput';
+import { GameObject } from '../gameEngine/GameObject';
+import { walls } from '../levels/level1';
+import { resources } from '../Resources';
+import { Sprite } from '../gameEngine/Sprite';
+import { isSpaceFree } from '../utils/grid';
+import { toTitleCase } from '../utils/stringUtils';
+import { Vector2 } from '../utils/vector';
+import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from './heroAnimations';
+import { moveTowards } from '../utils/moveUtils';
+import type { Scene } from '../gameEngine/Scene';
 
 export class Hero extends GameObject {
   facingDirection: string;

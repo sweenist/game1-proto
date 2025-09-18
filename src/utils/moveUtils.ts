@@ -1,4 +1,4 @@
-import type { Vector2 } from "./vector";
+import type { Vector2 } from './vector';
 
 export function moveTowards(actorPosition: Vector2, destination: Vector2, speed: number) {
   let traverseX = destination.x - actorPosition.x;
