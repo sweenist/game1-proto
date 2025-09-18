@@ -11,6 +11,13 @@ export default defineConfig({
       'node_modules',
       'dist'
     ],
-    environment: 'jsdom'
+    environment: 'jsdom',
+    coverage: {
+      exclude: [
+        'src/levels/**',
+        'vite*.ts',
+        '**/*.d.ts'
+      ]
+    }
   },
 })
