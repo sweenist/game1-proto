@@ -5,7 +5,7 @@ import { GameObject } from "../GameObject";
 import { walls } from "../levels/level1";
 import { resources } from "../Resources";
 import { Sprite } from "../Sprite";
-import { gridCells, isSpaceFree } from "../utils/grid";
+import { isSpaceFree } from "../utils/grid";
 import { toTitleCase } from "../utils/stringUtils";
 import { Vector2 } from "../utils/vector";
 import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./heroAnimations";
@@ -51,8 +51,6 @@ export class Hero extends GameObject {
 
     this.facingDirection = DOWN;
     this.destinationPosition = this.position.duplicate();
-    console.debug("positions:", this.position, "dest", this.destinationPosition);
-
   }
 
   step(_deltaTime: number, root: Scene) {
@@ -94,7 +92,7 @@ export class Hero extends GameObject {
     }
 
     this.facingDirection = input.direction ?? this.facingDirection;
-    console.debug("Walls?", nextX, nextY);
+
     if (!isSpaceFree(walls, nextX, nextY))
       return;
     this.destinationPosition = new Vector2(nextX, nextY);

@@ -25,7 +25,7 @@ export class Sprite extends GameObject {
   animations?: Animations | null;
 
   constructor(params: SpriteParams) {
-    super(params.position);
+    super(params.position); // relative offset
     this.resource = params.resource;
     this.frameSize = params.frameSize ?? new Vector2(16, 16);
     this.frameColumns = params.frameColumns ?? 1;
@@ -35,7 +35,6 @@ export class Sprite extends GameObject {
     this.animations = params.animations;
 
     this.buildFrameMap();
-
   }
 
   buildFrameMap() {
@@ -59,7 +58,6 @@ export class Sprite extends GameObject {
     if (!this.resource.loaded) {
       return
     }
-
     let frameCoordX = 0;
     let frameCoordY = 0;
 
@@ -78,8 +76,8 @@ export class Sprite extends GameObject {
       frameCoordY,
       frameSizeX,
       frameSizeY,
-      x,
-      y,
+      x + this.position.x,
+      y + this.position.y,
       frameSizeX * this.scale,
       frameSizeY * this.scale
     );
