@@ -1,7 +1,9 @@
+import type { GameObject } from "./GameObject";
+
 interface Subscription {
   id: number,
   eventName: string,
-  caller: string,
+  caller: GameObject,
   callback: { (value: object | null): void }
 }
 
@@ -9,7 +11,7 @@ class Events {
   nextId: number = 0;
   subscriptions: Subscription[] = [];
 
-  on(eventName: string, caller: string, callback: { (value: object | null): void }) {
+  on(eventName: string, caller: GameObject, callback: { (value: object | null): void }) {
     this.nextId += 1;
     this.subscriptions.push({
       id: this.nextId,
@@ -25,16 +27,17 @@ class Events {
     this.subscriptions = this.subscriptions.filter((sub) => sub.id !== id);
   }
 
+  // should there really be many events allowed?
   emit(eventName: string, value: object | null) {
-    const subscription = this.subscriptions.forEach((sub) => {
+    this.subscriptions.forEach((sub) => {
       if (sub.eventName === eventName) {
         sub.callback(value);
       }
-    }
+    });
   }
 
 
-  unsubscribe(caller: string) {
+  unsubscribe(caller: GameObject) {
     this.subscriptions = this.subscriptions.filter((sub) => sub.caller !== caller);
   }
 }

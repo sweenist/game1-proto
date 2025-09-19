@@ -8,6 +8,7 @@ import { GameInput } from './gameEngine/GameInput';
 import { Scene } from './gameEngine/Scene';
 import { Hero } from './actors/Hero';
 import { gridCells } from './utils/grid';
+import { Camera } from './gameEngine/Camera';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -31,12 +32,21 @@ mainScene.addChild(ground);
 const hero = new Hero(gridCells(6), gridCells(5));
 mainScene.addChild(hero);
 
+const camera = new Camera(canvas);
+mainScene.addChild(camera);
+
 const update = (deltaTime: number) => {
   mainScene.stepEntry(deltaTime, mainScene);
 }
 
 const draw = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.save();
+  ctx.translate(camera.position.x, camera.position.y);
+
   mainScene.draw(ctx, 0, 0);
+
+  ctx.restore();
 }
 
 const gameLoop = new GameLoop(update, draw);

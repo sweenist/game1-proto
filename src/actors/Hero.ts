@@ -11,6 +11,8 @@ import { Vector2 } from '../utils/vector';
 import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from './heroAnimations';
 import { moveTowards } from '../utils/moveUtils';
 import type { Scene } from '../gameEngine/Scene';
+import { gameEvents } from '../gameEngine/Events';
+import { signals } from '../constants';
 
 export class Hero extends GameObject {
   facingDirection: string;
@@ -59,6 +61,9 @@ export class Hero extends GameObject {
     if (hasArrived) {
       this.tryMove(root);
     }
+
+    gameEvents.emit(signals.heroPosition, this.position);
+
   }
 
   tryMove(root: Scene) {
@@ -95,6 +100,7 @@ export class Hero extends GameObject {
 
     if (!isSpaceFree(walls, nextX, nextY))
       return;
+
     this.destinationPosition = new Vector2(nextX, nextY);
     input.debugMessage = `Hero => pos:${this.body.position}|${this.position}; destination: ${this.destinationPosition}; frame: ${this.body.frameIndex}`;
   }
