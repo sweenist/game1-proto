@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [tsconfigPaths({ projects: ['tsconfig.test.json'] })],
   test: {
     include: [
       'tests/**/*.spec.ts'
@@ -11,6 +11,9 @@ export default defineConfig({
       'node_modules',
       'dist'
     ],
+    typecheck: {
+      tsconfig: 'tsconfig.test.json'
+    },
     environment: 'jsdom',
     coverage: {
       exclude: [
@@ -21,4 +24,4 @@ export default defineConfig({
       ]
     }
   },
-})
+});

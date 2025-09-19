@@ -10,11 +10,7 @@
     ],
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@src/*": [
-        "src/*"
-      ]
-    },
+    // paths removed: @src only for tests
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -30,7 +26,7 @@
     "noUncheckedSideEffectImports": true
   },
   "include": [
-    "src",
-    "tests"
+    "tests",
+    "src"
   ]
 }
