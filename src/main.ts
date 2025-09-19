@@ -26,7 +26,6 @@ const ground = new Sprite({
   frameSize: new Vector2(360, 180)
 });
 
-mainScene.addChild(sky);
 mainScene.addChild(ground);
 
 const hero = new Hero(gridCells(6), gridCells(5));
@@ -42,6 +41,8 @@ const update = (deltaTime: number) => {
 const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
+
+  sky.draw(ctx, 0, 0);
   ctx.translate(camera.position.x, camera.position.y);
 
   mainScene.draw(ctx, 0, 0);
