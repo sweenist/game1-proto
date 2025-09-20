@@ -8,7 +8,16 @@ import { Sprite } from '../gameEngine/Sprite';
 import { isSpaceFree } from '../utils/grid';
 import { toTitleCase } from '../utils/stringUtils';
 import { Vector2 } from '../utils/vector';
-import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from './heroAnimations';
+import {
+  WALK_DOWN,
+  WALK_UP,
+  WALK_LEFT,
+  WALK_RIGHT,
+  STAND_DOWN,
+  STAND_UP,
+  STAND_LEFT,
+  STAND_RIGHT,
+} from './heroAnimations';
 import { moveTowards } from '../utils/moveUtils';
 import type { Scene } from '../gameEngine/Scene';
 import { gameEvents } from '../gameEngine/Events';
@@ -21,7 +30,6 @@ export class Hero extends GameObject {
   shadow: Sprite;
 
   constructor(x: number, y: number) {
-    console.debug("hero x,y", x, y);
     super(new Vector2(x, y));
     this.shadow = new Sprite({
       resource: resources.images.shadow,
@@ -46,7 +54,7 @@ export class Hero extends GameObject {
         standUp: new FrameIndexPattern(STAND_UP),
         standLeft: new FrameIndexPattern(STAND_LEFT),
         standRight: new FrameIndexPattern(STAND_RIGHT),
-      })
+      }),
     });
 
     this.addChild(this.body);
@@ -63,14 +71,15 @@ export class Hero extends GameObject {
     }
 
     gameEvents.emit(signals.heroPosition, this.position);
-
   }
 
   tryMove(root: Scene) {
     const { input } = root;
 
     if (!input.direction) {
-      this.body.animations?.play("stand".concat(toTitleCase(this.facingDirection)));
+      this.body.animations?.play(
+        'stand'.concat(toTitleCase(this.facingDirection))
+      );
       return;
     }
 
@@ -81,25 +90,24 @@ export class Hero extends GameObject {
 
     if (input.direction === UP) {
       nextY -= gridSize;
-      this.body.animations?.play("walkUp");
+      this.body.animations?.play('walkUp');
     }
     if (input.direction === DOWN) {
       nextY += gridSize;
-      this.body.animations?.play("walkDown");
+      this.body.animations?.play('walkDown');
     }
     if (input.direction === LEFT) {
       nextX -= gridSize;
-      this.body.animations?.play("walkLeft");
+      this.body.animations?.play('walkLeft');
     }
     if (input.direction === RIGHT) {
       nextX += gridSize;
-      this.body.animations?.play("walkRight");
+      this.body.animations?.play('walkRight');
     }
 
     this.facingDirection = input.direction ?? this.facingDirection;
 
-    if (!isSpaceFree(walls, nextX, nextY))
-      return;
+    if (!isSpaceFree(walls, nextX, nextY)) return;
 
     this.destinationPosition = new Vector2(nextX, nextY);
     input.debugMessage = `Hero => pos:${this.body.position}|${this.position}; destination: ${this.destinationPosition}; frame: ${this.body.frameIndex}`;
