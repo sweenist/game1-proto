@@ -16,7 +16,9 @@ export class Rod extends GameObject {
       position: new Vector2(0, -4),
     });
     this.addChild(this.sprite);
+  }
 
+  ready(): void {
     gameEvents.on(signals.heroPosition, this, (value: Vector2) => {
       const heroPosition = value as Vector2;
 

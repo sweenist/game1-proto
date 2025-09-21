@@ -6,14 +6,22 @@ export class GameObject {
   children: GameObject[] = [];
   position: Vector2;
   parent?: GameObject | null;
+  isReady: boolean = false;
 
   constructor(position?: Vector2) {
     this.position = position ?? Vector2.Zero();
   }
 
+  ready(): void {
+    // override
+  }
+
   stepEntry(deltaTime: number, root: Scene) {
     this.children.forEach((child) => child.stepEntry(deltaTime, root));
-
+    if (!this.isReady) {
+      this.isReady = true;
+      this.ready();
+    }
     this.step(deltaTime, root);
   }
 

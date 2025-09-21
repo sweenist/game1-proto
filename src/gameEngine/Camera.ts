@@ -19,7 +19,9 @@ export class Camera extends GameObject {
       this.canvasWidth = canvas.width;
       this.canvasHeight = canvas.height;
     });
+  }
 
+  ready(): void {
     gameEvents.on(signals.heroPosition, this, (value: Vector2) => {
       if (!value) return;
 

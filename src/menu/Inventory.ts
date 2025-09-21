@@ -23,6 +23,10 @@ export class Inventory extends GameObject {
     this.items.push({ id: -1, image: resources.images.rod });
     this.items.push({ id: -2, image: resources.images.rod });
 
+    this.renderInventory();
+  }
+
+  ready(): void {
     gameEvents.on(signals.heroItemCollect, this, () => {
       this.nextId += 1;
       this.items.push({
@@ -31,8 +35,6 @@ export class Inventory extends GameObject {
       });
       this.renderInventory();
     });
-
-    this.renderInventory();
   }
 
   renderInventory() {

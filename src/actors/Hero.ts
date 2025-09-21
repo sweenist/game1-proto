@@ -66,7 +66,9 @@ export class Hero extends GameObject {
 
     this.facingDirection = DOWN;
     this.destinationPosition = this.position.duplicate();
+  }
 
+  ready(): void {
     gameEvents.on<ItemEventMetaData>(signals.heroItemCollect, this, (value) =>
       this.onItemCollect(value)
     );

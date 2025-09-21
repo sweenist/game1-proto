@@ -46,6 +46,7 @@ const inventory = new Inventory();
 
 const update = (deltaTime: number) => {
   mainScene.stepEntry(deltaTime, mainScene);
+  inventory.stepEntry(deltaTime, mainScene);
 };
 
 const draw = () => {
