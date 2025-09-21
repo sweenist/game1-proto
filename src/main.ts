@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 
 import { resources } from './Resources';
 import { Sprite } from './gameEngine/Sprite';
@@ -9,6 +9,8 @@ import { Scene } from './gameEngine/Scene';
 import { Hero } from './actors/Hero';
 import { gridCells } from './utils/grid';
 import { Camera } from './gameEngine/Camera';
+import { Rod } from './objects/Rod/Rod';
+import { gameEvents } from './gameEngine/Events';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -18,12 +20,12 @@ const mainScene = new Scene(input);
 
 const sky = new Sprite({
   resource: resources.images.sky,
-  frameSize: new Vector2(360, 180)
+  frameSize: new Vector2(360, 180),
 });
 
 const ground = new Sprite({
   resource: resources.images.ground,
-  frameSize: new Vector2(360, 180)
+  frameSize: new Vector2(360, 180),
 });
 
 mainScene.addChild(ground);
@@ -31,12 +33,17 @@ mainScene.addChild(ground);
 const hero = new Hero(gridCells(6), gridCells(5));
 mainScene.addChild(hero);
 
+const rod = new Rod(gridCells(12), gridCells(4));
+mainScene.addChild(rod);
+
 const camera = new Camera(canvas);
 mainScene.addChild(camera);
 
+input.consolate = () => mainScene.debug(0);
+
 const update = (deltaTime: number) => {
   mainScene.stepEntry(deltaTime, mainScene);
-}
+};
 
 const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -48,7 +55,7 @@ const draw = () => {
   mainScene.draw(ctx, 0, 0);
 
   ctx.restore();
-}
+};
 
 const gameLoop = new GameLoop(update, draw);
 gameLoop.start();

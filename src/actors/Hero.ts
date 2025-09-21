@@ -44,7 +44,7 @@ export class Hero extends GameObject {
       frameColumns: 3,
       frameRows: 8,
       frameIndex: 1,
-      position: new Vector2(-8, -21),
+      position: new Vector2(-8, -20),
       animations: new Animations({
         walkDown: new FrameIndexPattern(WALK_DOWN),
         walkUp: new FrameIndexPattern(WALK_UP),
@@ -110,6 +110,5 @@ export class Hero extends GameObject {
     if (!isSpaceFree(walls, nextX, nextY)) return;
 
     this.destinationPosition = new Vector2(nextX, nextY);
-    input.debugMessage = `Hero => pos:${this.body.position}|${this.position}; destination: ${this.destinationPosition}; frame: ${this.body.frameIndex}`;
   }
 }

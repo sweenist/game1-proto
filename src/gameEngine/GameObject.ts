@@ -1,9 +1,11 @@
 import type { Scene } from './Scene';
 import { Vector2 } from '../utils/vector';
+import { gameEvents } from './Events';
 
 export class GameObject {
   children: GameObject[] = [];
   position: Vector2;
+  parent?: GameObject | null;
 
   constructor(position?: Vector2) {
     this.position = position ?? Vector2.Zero();
@@ -32,13 +34,31 @@ export class GameObject {
     // override
   }
 
+  destroy() {
+    this.children.forEach((child) => child.destroy());
+
+    this.parent?.removeChild(this);
+  }
+
   addChild(gameObject: GameObject) {
+    gameObject.parent = this;
     this.children.push(gameObject);
   }
 
   removeChild(gameObject: GameObject) {
+    gameEvents.unsubscribe(gameObject);
     this.children = this.children.filter((g) => {
-      return gameObject !== g
+      return gameObject !== g;
+    });
+    gameObject.parent = null;
+  }
+
+  debug(level: number) {
+    const arrow = '-'.repeat(level + 1);
+
+    console.debug(`${arrow}>`, this, `\n\tParent: ${typeof this.parent}`);
+    this.children.forEach((child) => {
+      child.debug(level + 1);
     });
   }
 }
