@@ -10,7 +10,6 @@ import { Hero } from './actors/Hero';
 import { gridCells } from './utils/grid';
 import { Camera } from './gameEngine/Camera';
 import { Rod } from './objects/Rod/Rod';
-import { gameEvents } from './gameEngine/Events';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;

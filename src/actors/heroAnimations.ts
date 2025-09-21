@@ -59,3 +59,8 @@ export const WALK_DOWN: animationConfiguration = makeAnimationFrames(0);
 export const WALK_RIGHT: animationConfiguration = makeAnimationFrames(3);
 export const WALK_UP: animationConfiguration = makeAnimationFrames(6);
 export const WALK_LEFT: animationConfiguration = makeAnimationFrames(9);
+
+export const PICK_UP_DOWN: animationConfiguration = {
+  duration: 400,
+  frames: [{ frame: 12, time: 0 }],
+};

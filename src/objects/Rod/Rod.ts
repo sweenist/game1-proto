@@ -1,3 +1,4 @@
+import type { ItemEventMetaData } from 'src/types/eventTypes';
 import { signals } from '../../constants';
 import { gameEvents } from '../../gameEngine/Events';
 import { GameObject } from '../../gameEngine/GameObject';
@@ -16,7 +17,7 @@ export class Rod extends GameObject {
     });
     this.addChild(this.sprite);
 
-    gameEvents.on(signals.heroPosition, this, (value: object | null) => {
+    gameEvents.on(signals.heroPosition, this, (value: Vector2) => {
       const heroPosition = value as Vector2;
 
       if (heroPosition.prettyClose(this.position)) {
@@ -27,5 +28,9 @@ export class Rod extends GameObject {
 
   onPlayerCollide() {
     this.destroy();
+    gameEvents.emit<ItemEventMetaData>(signals.heroItemCollect, {
+      image: resources.images.rod,
+      position: this.position,
+    });
   }
 }

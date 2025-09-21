@@ -1,23 +1,23 @@
-import type { GameObject } from "./GameObject";
+import type { GameObject } from './GameObject';
 
-interface Subscription {
-  id: number,
-  eventName: string,
-  caller: GameObject,
-  callback: { (value: object | null): void }
+interface Subscription<T> {
+  id: number;
+  eventName: string;
+  caller: GameObject;
+  callback: { (value: T): void };
 }
 
 class Events {
   nextId: number = 0;
-  subscriptions: Subscription[] = [];
+  subscriptions: Subscription<any>[] = [];
 
-  on(eventName: string, caller: GameObject, callback: { (value: object | null): void }) {
+  on<T>(eventName: string, caller: GameObject, callback: { (value: T): void }) {
     this.nextId += 1;
     this.subscriptions.push({
       id: this.nextId,
       eventName,
       caller,
-      callback
+      callback,
     });
 
     return this.nextId;
@@ -27,18 +27,19 @@ class Events {
     this.subscriptions = this.subscriptions.filter((sub) => sub.id !== id);
   }
 
-  // should there really be many events allowed?
-  emit(eventName: string, value: object | null) {
+  emit<T>(eventName: string, value: T) {
     this.subscriptions.forEach((sub) => {
       if (sub.eventName === eventName) {
+        // console.debug(`emitting ${eventName}`);
         sub.callback(value);
       }
     });
   }
 
-
   unsubscribe(caller: GameObject) {
-    this.subscriptions = this.subscriptions.filter((sub) => sub.caller !== caller);
+    this.subscriptions = this.subscriptions.filter(
+      (sub) => sub.caller !== caller
+    );
   }
 }
 
