@@ -1,5 +1,5 @@
-import type { ImageResource } from 'src/Resources';
-import type { Vector2 } from 'src/utils/vector';
+import type { ImageResource } from '../Resources';
+import type { Vector2 } from '../utils/vector';
 
 export type ItemEventMetaData = {
   image: ImageResource;

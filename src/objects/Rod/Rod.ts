@@ -1,4 +1,4 @@
-import type { ItemEventMetaData } from 'src/types/eventTypes';
+import type { ItemEventMetaData } from '../../types/eventTypes';
 import { signals } from '../../constants';
 import { gameEvents } from '../../gameEngine/Events';
 import { GameObject } from '../../gameEngine/GameObject';
