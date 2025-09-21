@@ -10,6 +10,7 @@ import { Hero } from './actors/Hero';
 import { gridCells } from './utils/grid';
 import { Camera } from './gameEngine/Camera';
 import { Rod } from './objects/Rod/Rod';
+import { Inventory } from './menu/Inventory';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -40,6 +41,9 @@ mainScene.addChild(camera);
 
 input.consolate = () => mainScene.debug(0);
 
+//Inventory
+const inventory = new Inventory();
+
 const update = (deltaTime: number) => {
   mainScene.stepEntry(deltaTime, mainScene);
 };
@@ -54,6 +58,8 @@ const draw = () => {
   mainScene.draw(ctx, 0, 0);
 
   ctx.restore();
+
+  inventory.draw(ctx, 0, 0);
 };
 
 const gameLoop = new GameLoop(update, draw);
