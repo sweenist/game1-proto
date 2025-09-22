@@ -27,7 +27,7 @@ class Events {
     this.subscriptions = this.subscriptions.filter((sub) => sub.id !== id);
   }
 
-  emit<T>(eventName: string, value: T) {
+  emit<T>(eventName: string, value: T | null = null) {
     this.subscriptions.forEach((sub) => {
       if (sub.eventName === eventName) {
         // console.debug(`emitting ${eventName}`);

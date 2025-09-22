@@ -11,6 +11,9 @@ import { gridCells } from './utils/grid';
 import { Camera } from './gameEngine/Camera';
 import { Rod } from './objects/Rod/Rod';
 import { Inventory } from './menu/Inventory';
+import { Exit } from './objects/Exit';
+import { gameEvents } from './gameEngine/Events';
+import { signals } from './constants';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -30,6 +33,9 @@ const ground = new Sprite({
 
 mainScene.addChild(ground);
 
+const exit = new Exit(gridCells(6), gridCells(3));
+mainScene.addChild(exit);
+
 const hero = new Hero(gridCells(6), gridCells(5));
 mainScene.addChild(hero);
 
@@ -40,6 +46,9 @@ const camera = new Camera(canvas);
 mainScene.addChild(camera);
 
 input.consolate = () => mainScene.debug(0);
+gameEvents.on(signals.sceneExit, mainScene, () => {
+  console.log('scene exit');
+});
 
 //Inventory
 const inventory = new Inventory();
