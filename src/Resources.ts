@@ -11,12 +11,19 @@ class Resources {
   constructor() {
     this.images = {};
     this.toLoad = {
+      caveBackground: 'sprites/cave.png',
+      caveForeground: 'sprites/cave-ground.png',
+      exit: 'sprites/exit.png',
+      font: 'sprites/spite-font-white.png',
       ground: 'sprites/ground.png',
       hero: 'sprites/hero-sheet.png',
+      knight: 'sprites/knight-sheet.png',
+      portraits: 'sprites/portraits-sheet.png',
       rod: 'sprites/rod.png',
       shadow: 'sprites/shadow.png',
       sky: 'sprites/sky.png',
       spritesheet: 'sprites/spritesheet.png',
+      textbox: 'sprites/text-box.png',
     };
 
     Object.keys(this.toLoad).forEach((key: string) => {
