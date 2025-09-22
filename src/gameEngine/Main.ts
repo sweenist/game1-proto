@@ -1,4 +1,5 @@
 import { Inventory } from '../menu/Inventory';
+import type { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
 import { GameInput } from './GameInput';
 import { GameObject } from './GameObject';
@@ -6,6 +7,7 @@ import { Level } from './Level';
 
 export interface MainGameParams {
   ctx: CanvasRenderingContext2D;
+  position?: Vector2;
   level?: Level;
 }
 
@@ -16,14 +18,13 @@ export class Main extends GameObject {
   inventory: Inventory;
 
   constructor(params: MainGameParams) {
-    super();
+    super(params.position);
 
     this.camera = new Camera(params.ctx.canvas);
     this.inventory = new Inventory();
     this.input = new GameInput();
 
     this.addChild(this.camera);
-    this.addChild(this.inventory);
   }
 
   ready(): void {
@@ -39,9 +40,13 @@ export class Main extends GameObject {
     this.addChild(this.level);
   }
 
+  stepEntry(deltaTime: number, root: Main): void {
+    super.stepEntry(deltaTime, root);
+    this.inventory.stepEntry(deltaTime, this);
+  }
+
   drawBackground(ctx: CanvasRenderingContext2D) {
     this.level?.background?.draw(ctx, 0, 0);
-    this.level?.draw(ctx, 0, 0);
   }
 
   drawForeground(ctx: CanvasRenderingContext2D) {

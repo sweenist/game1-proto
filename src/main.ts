@@ -23,11 +23,12 @@ const update = (deltaTime: number) => {
 
 const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  mainScene.drawBackground(ctx);
   ctx.save();
 
   ctx.translate(mainScene.camera.position.x, mainScene.camera.position.y);
-
-  mainScene.drawBackground(ctx);
+  mainScene.draw(ctx, 0, 0);
 
   ctx.restore();
 
