@@ -2,7 +2,6 @@ import { Animations } from '../gameEngine/Animations';
 import { FrameIndexPattern } from '../gameEngine/FrameIndexPattern';
 import { DOWN, LEFT, RIGHT, UP } from '../gameEngine/GameInput';
 import { GameObject } from '../gameEngine/GameObject';
-import { walls } from '../levels/level1';
 import { resources } from '../Resources';
 import { Sprite } from '../gameEngine/Sprite';
 import { isSpaceFree } from '../utils/grid';
@@ -20,10 +19,10 @@ import {
   PICK_UP_DOWN,
 } from './heroAnimations';
 import { moveTowards } from '../utils/moveUtils';
-import type { Scene } from '../gameEngine/Scene';
 import { gameEvents } from '../gameEngine/Events';
 import { signals } from '../constants';
 import type { ItemEventMetaData } from '../types/eventTypes';
+import type { Main } from '../gameEngine/Main';
 
 export class Hero extends GameObject {
   facingDirection: string;
@@ -74,7 +73,7 @@ export class Hero extends GameObject {
     );
   }
 
-  step(deltaTime: number, root: Scene) {
+  step(deltaTime: number, root: Main) {
     if (this.itemPickupTime > 0) {
       this.processOnItemPickup(deltaTime);
       return;
@@ -88,8 +87,8 @@ export class Hero extends GameObject {
     gameEvents.emit(signals.heroPosition, this.position);
   }
 
-  tryMove(root: Scene) {
-    const { input } = root;
+  tryMove(root: Main) {
+    const { input, level } = root;
 
     if (!input.direction) {
       this.body.animations?.play(
@@ -122,7 +121,7 @@ export class Hero extends GameObject {
 
     this.facingDirection = input.direction ?? this.facingDirection;
 
-    if (!isSpaceFree(walls, nextX, nextY)) return;
+    if (!isSpaceFree(level!.walls, nextX, nextY)) return;
 
     this.destinationPosition = new Vector2(nextX, nextY);
   }

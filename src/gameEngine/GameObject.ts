@@ -1,6 +1,6 @@
-import type { Scene } from './Scene';
 import { Vector2 } from '../utils/vector';
 import { gameEvents } from './Events';
+import type { Main } from './Main';
 
 export class GameObject {
   children: GameObject[] = [];
@@ -16,7 +16,7 @@ export class GameObject {
     // override
   }
 
-  stepEntry(deltaTime: number, root: Scene) {
+  stepEntry(deltaTime: number, root: Main) {
     this.children.forEach((child) => child.stepEntry(deltaTime, root));
     if (!this.isReady) {
       this.isReady = true;
@@ -25,7 +25,7 @@ export class GameObject {
     this.step(deltaTime, root);
   }
 
-  step(_deltaTime: number, _root?: Scene) {
+  step(_deltaTime: number, _root?: Main) {
     // override
   }
 
