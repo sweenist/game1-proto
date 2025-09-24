@@ -17,9 +17,6 @@ export class Inventory extends GameObject {
   constructor() {
     super(new Vector2(0, 1));
 
-    const sprite = new Sprite({ resource: resources.images['rod'] });
-    this.addChild(sprite);
-
     this.items.push({ id: -1, image: resources.images.rod });
     this.items.push({ id: -2, image: resources.images.rod });
 

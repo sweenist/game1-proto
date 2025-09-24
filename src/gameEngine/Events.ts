@@ -1,3 +1,4 @@
+import { signals } from '../constants';
 import type { GameObject } from './GameObject';
 
 interface Subscription<T> {
@@ -20,17 +21,23 @@ class Events {
       callback,
     });
 
+    console.debug(
+      `subscribed ${this.nextId}: ${caller.constructor.name} to ${eventName}`
+    );
     return this.nextId;
   }
 
   off(id: number) {
     this.subscriptions = this.subscriptions.filter((sub) => sub.id !== id);
+
+    console.debug(`unsubscribed event id ${id}`);
   }
 
   emit<T>(eventName: string, value: T | null = null) {
     this.subscriptions.forEach((sub) => {
       if (sub.eventName === eventName) {
-        // console.debug(`emitting ${eventName}`);
+        if (eventName != signals.heroPosition)
+          console.debug(`emitting ${eventName}`);
         sub.callback(value);
       }
     });
@@ -40,6 +47,8 @@ class Events {
     this.subscriptions = this.subscriptions.filter(
       (sub) => sub.caller !== caller
     );
+
+    console.debug(`unsubscribed caller ${caller.constructor.name}`);
   }
 }
 
