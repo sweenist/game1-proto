@@ -28,7 +28,10 @@ export class Main extends GameObject {
   }
 
   ready(): void {
-    this.input.consolate = () => this.level?.debug(0);
+    this.input.consolate = () => {
+      this.debug(0);
+      this.inventory.debug(1);
+    };
   }
 
   setLevel(level: Level) {
