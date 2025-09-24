@@ -22,6 +22,7 @@ class Resources {
       rod: 'sprites/rod.png',
       shadow: 'sprites/shadow.png',
       sky: 'sprites/sky.png',
+      slimeRed: 'sprites/redslime.png',
       spritesheet: 'sprites/spritesheet.png',
       textbox: 'sprites/text-box.png',
     };
