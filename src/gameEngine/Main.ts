@@ -1,6 +1,8 @@
+import { signals } from '../constants';
 import { Inventory } from '../menu/Inventory';
 import type { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
+import { gameEvents } from './Events';
 import { GameInput } from './GameInput';
 import { GameObject } from './GameObject';
 import { Level } from './Level';
@@ -32,6 +34,12 @@ export class Main extends GameObject {
       this.debug(0);
       this.inventory.debug(1);
     };
+
+    gameEvents.on<Level>(signals.levelChange, this, (newLevel) => {
+      console.info(`Leaving ${this.level?.constructor.name ?? 'None'}`);
+      this.setLevel(newLevel);
+      console.info(`Loading ${this.level?.constructor.name ?? 'Error'}`);
+    });
   }
 
   setLevel(level: Level) {

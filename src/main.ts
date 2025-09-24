@@ -1,21 +1,17 @@
 import './style.css';
 
 import { GameLoop } from './gameEngine/GameLoop';
-import { gameEvents } from './gameEngine/Events';
-import { signals } from './constants';
 import { Main } from './gameEngine/Main';
 import { OutdoorLevel } from './levels/OutdoorLevel';
+import { CaveLevel } from './levels/CaveLevel';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game-canvas')!;
 const ctx = canvas.getContext('2d')!;
 
 const mainScene = new Main({ ctx });
-mainScene.ready();
-mainScene.setLevel(new OutdoorLevel());
 
-gameEvents.on(signals.sceneExit, mainScene, () => {
-  console.log('scene exit');
-});
+// mainScene.setLevel(new OutdoorLevel());
+mainScene.setLevel(new CaveLevel());
 
 const update = (deltaTime: number) => {
   mainScene.stepEntry(deltaTime, mainScene);

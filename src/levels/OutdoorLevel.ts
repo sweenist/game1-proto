@@ -1,4 +1,6 @@
 import { Hero } from '../actors/Hero';
+import { signals } from '../constants';
+import { gameEvents } from '../gameEngine/Events';
 import { Level } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { Exit } from '../objects/Exit';
@@ -6,6 +8,7 @@ import { Rod } from '../objects/Rod/Rod';
 import { resources } from '../Resources';
 import { gridCells } from '../utils/grid';
 import { Vector2 } from '../utils/vector';
+import { CaveLevel } from './CaveLevel';
 
 export class OutdoorLevel extends Level {
   constructor() {
@@ -32,6 +35,13 @@ export class OutdoorLevel extends Level {
     this.addChild(rod);
 
     this.defineWalls();
+  }
+
+  ready(): void {
+    gameEvents.on(signals.sceneExit, this, () => {
+      console.info(`Called from ${this.constructor.name} in Outdoorlevel`);
+      gameEvents.emit(signals.levelChange, new CaveLevel());
+    });
   }
 
   defineWalls() {
