@@ -32,8 +32,8 @@ export class Hero extends GameObject {
   itemPickupTime: number = 0;
   itemPickupShell?: GameObject;
 
-  constructor(x: number, y: number) {
-    super(new Vector2(x, y));
+  constructor(position: Vector2) {
+    super(position);
     this.shadow = new Sprite({
       resource: resources.images.shadow,
       frameSize: new Vector2(32, 32),

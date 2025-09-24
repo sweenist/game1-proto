@@ -2,6 +2,7 @@ import { signals } from '../constants';
 import { gameEvents } from './Events';
 import { GameObject } from './GameObject';
 import { Vector2 } from '../utils/vector';
+import { Level } from './Level';
 
 export class Camera extends GameObject {
   canvas: HTMLCanvasElement;
@@ -22,13 +23,21 @@ export class Camera extends GameObject {
   }
 
   ready(): void {
-    gameEvents.on(signals.heroPosition, this, (value: Vector2) => {
+    gameEvents.on<Vector2>(signals.heroPosition, this, (value) => {
       if (!value) return;
 
-      const halfWidth = -this.halfActor + this.canvasWidth / 2;
-      const halfHeight = -this.halfActor + this.canvasHeight / 2;
-
-      this.position = new Vector2(-value.x + halfWidth, -value.y + halfHeight);
+      this.centerPositionOnTarget(value);
     });
+
+    gameEvents.on<Level>(signals.levelChange, this, (level) => {
+      this.centerPositionOnTarget(level.actorPosition);
+    })
+  }
+
+  centerPositionOnTarget(target: Vector2) {
+    const halfWidth = -this.halfActor + this.canvasWidth / 2;
+    const halfHeight = -this.halfActor + this.canvasHeight / 2;
+
+    this.position = new Vector2(-target.x + halfWidth, -target.y + halfHeight);
   }
 }

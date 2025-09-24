@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   makeAnimationFrames,
   type frameConfiguration,
-} from 'src/actors/heroAnimations';
+} from '@src/actors/heroAnimations';
 
 describe('heroAnimations', () => {
   it('should create animation frames', () => {

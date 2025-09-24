@@ -1,7 +1,7 @@
 import { Hero } from '../actors/Hero';
 import { signals } from '../constants';
 import { gameEvents } from '../gameEngine/Events';
-import { Level } from '../gameEngine/Level';
+import { Level, type LevelParams } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { Exit } from '../objects/Exit';
 import { Rod } from '../objects/Rod/Rod';
@@ -11,8 +11,8 @@ import { Vector2 } from '../utils/vector';
 import { CaveLevel } from './CaveLevel';
 
 export class OutdoorLevel extends Level {
-  constructor() {
-    super();
+  constructor(params: LevelParams) {
+    super(params);
 
     this.background = new Sprite({
       resource: resources.images.sky,
@@ -25,7 +25,7 @@ export class OutdoorLevel extends Level {
     });
 
     const exit = new Exit(gridCells(6), gridCells(3));
-    const hero = new Hero(gridCells(6), gridCells(5));
+    const hero = new Hero(this.actorPosition);
     const rod = new Rod(gridCells(12), gridCells(4));
 
     this.addChild(ground);
@@ -40,7 +40,7 @@ export class OutdoorLevel extends Level {
   ready(): void {
     gameEvents.on(signals.sceneExit, this, () => {
       console.info(`Called from ${this.constructor.name} in Outdoorlevel`);
-      gameEvents.emit(signals.levelChange, new CaveLevel());
+      gameEvents.emit(signals.levelChange, new CaveLevel({ actorPosition: new Vector2(gridCells(2), gridCells(3)) }));
     });
   }
 
