@@ -8,7 +8,7 @@ export class GameObject {
   parent?: GameObject | null;
   isReady: boolean = false;
   isSolid: boolean = false;
-  drawLayer: 'GROUND' | 'DEFAULT' = 'DEFAULT';
+  drawLayer: 'DEFAULT' | 'GROUND' | 'ABOVE' = 'DEFAULT';
 
   constructor(position?: Vector2) {
     this.position = position ?? Vector2.Zero();
@@ -37,7 +37,16 @@ export class GameObject {
 
     this.drawImage(ctx, drawPosX, drawPosY);
 
-    this.children.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
+    this.getOrderedDrawSprites().forEach((child) =>
+      child.draw(ctx, drawPosX, drawPosY)
+    );
+  }
+
+  getOrderedDrawSprites() {
+    return [...this.children].sort((src, target) => {
+      if (target.drawLayer === 'GROUND') return 1;
+      return src.position.y > target.position.y ? 1 : -1;
+    });
   }
 
   drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number) {
