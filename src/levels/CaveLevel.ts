@@ -61,5 +61,27 @@ export class CaveLevel extends Level {
       this.walls.add(new Vector2(gridCells(x + 1), gridCells(0)).toString());
       this.walls.add(new Vector2(gridCells(x + 1), gridCells(8)).toString());
     });
+
+    const rocks = [
+      new Vector2(gridCells(2), gridCells(4)),
+      new Vector2(gridCells(9), gridCells(1)),
+      new Vector2(gridCells(12), gridCells(2)),
+      new Vector2(gridCells(13), gridCells(2)),
+      new Vector2(gridCells(13), gridCells(3)),
+      new Vector2(gridCells(16), gridCells(5)),
+    ];
+
+    const water = [
+      new Vector2(gridCells(6), gridCells(6)),
+      new Vector2(gridCells(7), gridCells(6)),
+      new Vector2(gridCells(8), gridCells(6)),
+      new Vector2(gridCells(11), gridCells(6)),
+      new Vector2(gridCells(12), gridCells(6)),
+      new Vector2(gridCells(13), gridCells(6)),
+      new Vector2(gridCells(15), gridCells(2)),
+      new Vector2(gridCells(16), gridCells(2)),
+    ];
+
+    rocks.concat(water).forEach((obj) => this.walls.add(obj.toString()));
   }
 }
