@@ -1,4 +1,5 @@
 import { Hero } from '../actors/Hero';
+import { Npc } from '../actors/Npc';
 import { signals } from '../constants';
 import { gameEvents } from '../gameEngine/Events';
 import { Level, type LevelParams } from '../gameEngine/Level';
@@ -30,6 +31,9 @@ export class CaveLevel extends Level {
 
     const hero = new Hero(this.actorPosition);
     this.addChild(hero);
+
+    const knight = new Npc(new Vector2(gridCells(5), gridCells(5)));
+    this.addChild(knight);
 
     const rod = new Rod(gridCells(9), gridCells(7));
     this.addChild(rod);
