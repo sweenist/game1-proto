@@ -33,12 +33,33 @@ export class CaveLevel extends Level {
 
     const rod = new Rod(gridCells(9), gridCells(7));
     this.addChild(rod);
+
+    this.defineWalls();
   }
 
   ready(): void {
     gameEvents.on(signals.sceneExit, this, () => {
       console.info(`Called from ${this.constructor.name} in Cavelevel`);
-      gameEvents.emit(signals.levelChange, new OutdoorLevel({actorPosition: new Vector2(gridCells(6), gridCells(4))}));
+      gameEvents.emit(
+        signals.levelChange,
+        new OutdoorLevel({
+          actorPosition: new Vector2(gridCells(6), gridCells(4)),
+        })
+      );
+    });
+  }
+
+  defineWalls(): void {
+    //Vertical edges
+    Array.from({ length: 7 }, (_, i) => i).forEach((y) => {
+      this.walls.add(new Vector2(gridCells(1), gridCells(y + 1)).toString());
+      this.walls.add(new Vector2(gridCells(18), gridCells(y + 1)).toString());
+    });
+
+    //Horizontal edges
+    Array.from({ length: 17 }, (_, i) => i).forEach((x) => {
+      this.walls.add(new Vector2(gridCells(x + 1), gridCells(0)).toString());
+      this.walls.add(new Vector2(gridCells(x + 1), gridCells(8)).toString());
     });
   }
 }
