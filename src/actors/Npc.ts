@@ -10,6 +10,8 @@ export class Npc extends GameObject {
   constructor(position: Vector2) {
     super(position);
 
+    this.isSolid = true;
+
     this.shadow = new Sprite({
       resource: resources.images.shadow,
       frameSize: new Vector2(32, 32),

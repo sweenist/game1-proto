@@ -119,11 +119,17 @@ export class Hero extends GameObject {
       this.body.animations?.play('walkRight');
     }
 
+    const destination = new Vector2(nextX, nextY);
     this.facingDirection = input.direction ?? this.facingDirection;
 
-    if (!isSpaceFree(level!.walls, nextX, nextY)) return;
+    const isWalkable = isSpaceFree(level!.walls, destination);
+    const hasActor = this.parent?.children.find((child) => {
+      return child.isSolid && child.position.equals(destination);
+    });
 
-    this.destinationPosition = new Vector2(nextX, nextY);
+    if (!isWalkable || hasActor) return;
+
+    this.destinationPosition = destination;
   }
 
   processOnItemPickup(delta: number) {

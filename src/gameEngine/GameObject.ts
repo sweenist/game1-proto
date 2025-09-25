@@ -7,6 +7,8 @@ export class GameObject {
   position: Vector2;
   parent?: GameObject | null;
   isReady: boolean = false;
+  isSolid: boolean = false;
+  drawLayer: 'GROUND' | 'DEFAULT' = 'DEFAULT';
 
   constructor(position?: Vector2) {
     this.position = position ?? Vector2.Zero();
