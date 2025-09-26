@@ -57,7 +57,7 @@ export class Sprite extends GameObject {
     this.frameIndex = this.animations?.frame;
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false) {
     if (!this.resource.loaded) {
       return
     }
@@ -72,6 +72,9 @@ export class Sprite extends GameObject {
 
     const frameSizeX = this.frameSize.x;
     const frameSizeY = this.frameSize.y;
+
+    if(debug)
+      console.debug(`Sprite: ${this.name} -> size: ${frameSizeX}, ${frameSizeY}; pos: ${frameCoordX}, ${frameCoordY}`);
 
     ctx.drawImage(
       this.resource.image,

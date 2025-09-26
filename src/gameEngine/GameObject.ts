@@ -31,7 +31,7 @@ export class GameObject {
     // override
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false) {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
@@ -49,7 +49,7 @@ export class GameObject {
     });
   }
 
-  drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number) {
+  drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number, debug: boolean = false) {
     // override
   }
 

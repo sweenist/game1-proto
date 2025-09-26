@@ -52,13 +52,13 @@ export class SpriteText extends GameObject {
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false): void {
     const positionOffset = new Vector2(x + this.position.x, y + this.position.y);
     this.backdrop.draw(ctx, positionOffset.x, positionOffset.y);
     this.drawImage(ctx, positionOffset.x, positionOffset.y);
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false): void {
     const PADDING_LEFT = 7;
     const PADDING_TOP = 7;
     const LINE_MAX_WIDTH = 240;

@@ -16,12 +16,12 @@ export class TextBox extends GameObject {
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false): void {
     this.backdrop.draw(ctx, this.position.x, this.position.y);
     this.drawImage(ctx, this.position.x, this.position.y);
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false): void {
     // this.backdrop.drawImage(ctx, x, y);
 
     ctx.font = '12px fontRetroGaming';
