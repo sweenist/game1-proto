@@ -14,18 +14,25 @@ export class TextBox extends GameObject {
       resource: resources.images['textbox'],
       frameSize: new Vector2(256, 64),
     });
+  }
 
-    this.addChild(this.backdrop);
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+    this.backdrop.draw(ctx, this.position.x, this.position.y);
+    this.drawImage(ctx, this.position.x, this.position.y);
   }
 
   drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
-    // super.drawImage(ctx, x, y);
     this.backdrop.drawImage(ctx, x, y);
 
-    // const MAX_WIDTH = 250;
-    // const LINE_HEIGHT = 20;
-    // const PADDING_LEFT = 10;
-    // const PADDING_TOP = 12;
-    // ctx.fillText(this.content, x + PADDING_LEFT, y + PADDING_TOP);
+    ctx.font = '16px fontRetroGaming';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#eee';
+
+    const MAX_WIDTH = 250;
+    const LINE_HEIGHT = 20;
+    const PADDING_LEFT = 10;
+    const PADDING_TOP = 12;
+    ctx.fillText(this.content, x + PADDING_LEFT, y + PADDING_TOP);
   }
 }
