@@ -43,3 +43,6 @@ const frameMap = new Map<string, number>();
   .forEach((char, index) => {
     frameMap.set(char, index);
   });
+
+export const getCharacterFrame = (char: string) => frameMap.get(char);
+
