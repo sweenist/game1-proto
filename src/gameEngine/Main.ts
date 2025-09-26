@@ -1,5 +1,6 @@
 import { signals } from '../constants';
 import { Inventory } from '../menu/Inventory';
+import { SpriteText } from '../objects/TextBox/SpriteText';
 import { TextBox } from '../objects/TextBox/TextBox';
 import type { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
@@ -19,7 +20,7 @@ export class Main extends GameObject {
   camera: Camera;
   input: GameInput;
   inventory: Inventory;
-  textBox: TextBox;
+  textBox: GameObject;
 
   constructor(params: MainGameParams) {
     super(params.position);
@@ -27,7 +28,8 @@ export class Main extends GameObject {
     this.camera = new Camera(params.ctx.canvas);
     this.inventory = new Inventory();
     this.input = new GameInput();
-    this.textBox = new TextBox();
+    this.textBox = new SpriteText("This is some test text. Here's some length");
+    // this.textBox = new TextBox();
 
     this.addChild(this.camera);
   }

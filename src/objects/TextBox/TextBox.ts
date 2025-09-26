@@ -6,7 +6,6 @@ import { Vector2 } from '../../utils/vector';
 export class TextBox extends GameObject {
   content: string;
   backdrop: Sprite;
-  d: number = 0;
 
   constructor() {
     super(new Vector2(36, 112));
@@ -23,7 +22,7 @@ export class TextBox extends GameObject {
   }
 
   drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
-    this.backdrop.drawImage(ctx, x, y);
+    // this.backdrop.drawImage(ctx, x, y);
 
     ctx.font = '12px fontRetroGaming';
     ctx.textAlign = 'left';
@@ -42,18 +41,13 @@ export class TextBox extends GameObject {
       let testline = line + words[i] + SPACE;
       let renderLength = ctx.measureText(testline);
       if (renderLength.width > MAX_WIDTH && i > 0) {
-        if (this.d === 0)
-          console.info(`Kerning kernels ${i} at ${y}: ${testline}|${line}`);
         ctx.fillText(line, x + PADDING_LEFT, y + PADDING_TOP);
         line = words[i] + SPACE;
         y += LINE_HEIGHT;
       } else {
-        if (this.d === 0)
-          console.info(`line build ${i} at ${y}: ${testline}|${line}`);
         line = testline;
       }
     }
     ctx.fillText(line, x + PADDING_LEFT, y + PADDING_TOP);
-    this.d = 1;
   }
 }
