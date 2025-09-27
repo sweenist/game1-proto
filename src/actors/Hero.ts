@@ -31,6 +31,7 @@ export class Hero extends GameObject {
   shadow: Sprite;
   itemPickupTime: number = 0;
   itemPickupShell?: GameObject;
+  isLocked: boolean = false;
 
   constructor(position: Vector2) {
     super(position);
@@ -71,6 +72,18 @@ export class Hero extends GameObject {
     gameEvents.on<ItemEventMetaData>(signals.heroItemCollect, this, (value) =>
       this.onItemCollect(value)
     );
+
+    gameEvents.on(
+      signals.startTextInteraction,
+      this,
+      () => (this.isLocked = true)
+    );
+
+    gameEvents.on(
+      signals.endTextInteraction,
+      this,
+      () => (this.isLocked = false)
+    );
   }
 
   step(deltaTime: number, root: Main) {
@@ -78,6 +91,13 @@ export class Hero extends GameObject {
       this.processOnItemPickup(deltaTime);
       return;
     }
+
+    const { input } = root;
+    if (input.getActionJustPressed('Space')) {
+      console.debug('ACTION');
+      gameEvents.emit(signals.heroInteraction);
+    }
+
     const distance = moveTowards(this.position, this.destinationPosition, 1);
     const hasArrived = distance < 1;
     if (hasArrived) {
@@ -88,6 +108,8 @@ export class Hero extends GameObject {
   }
 
   tryMove(root: Main) {
+    if (this.isLocked) return;
+
     const { input, level } = root;
 
     if (!input.direction) {

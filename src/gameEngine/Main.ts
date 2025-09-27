@@ -1,7 +1,6 @@
 import { signals } from '../constants';
 import { Inventory } from '../menu/Inventory';
 import { SpriteText } from '../objects/TextBox/SpriteText';
-import { TextBox } from '../objects/TextBox/TextBox';
 import type { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
 import { gameEvents } from './Events';
@@ -31,17 +30,26 @@ export class Main extends GameObject {
 
   ready(): void {
     const inventory = new Inventory();
-    const textBox = new SpriteText(
-      "This is some test text. Here's some length! Now we have more to say..."
-    );
 
     this.addChild(inventory);
-    this.addChild(textBox);
 
     gameEvents.on<Level>(signals.levelChange, this, (newLevel) => {
       console.info(`Leaving ${this.level?.constructor.name ?? 'None'}`);
       this.setLevel(newLevel);
       console.info(`Loading ${this.level?.constructor.name ?? 'Error'}`);
+    });
+
+    gameEvents.on(signals.heroInteraction, this, () => {
+      const textBox = new SpriteText(
+        "This is some test text. Here's some length! Now we have more to say..."
+      );
+      this.addChild(textBox);
+      gameEvents.emit(signals.startTextInteraction);
+
+      const textBoxId = gameEvents.on(signals.endTextInteraction, this, () => {
+        textBox.destroy();
+        gameEvents.off(textBoxId);
+      });
     });
 
     this.input.consolate = () => {

@@ -17,6 +17,7 @@ mainScene.setLevel(
 
 const update = (deltaTime: number) => {
   mainScene.stepEntry(deltaTime, mainScene);
+  mainScene.input.update();
 };
 
 const draw = () => {

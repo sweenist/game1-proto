@@ -5,11 +5,15 @@ export const DOWN = 'DOWN';
 
 export class GameInput {
   directions: string[] = [];
+  keys: { [key: string]: boolean } = {};
+  lastKeys: { [key: string]: boolean } = {};
   debugMessage: string = '';
   consolate?: () => void;
 
   constructor() {
     document.addEventListener('keydown', (e) => {
+      this.keys[e.code] = true;
+
       if (e.key === 'ArrowUp' || e.key === 'w') {
         this.onArrowPressed(UP);
       }
@@ -22,13 +26,15 @@ export class GameInput {
       if (e.key === 'ArrowRight' || e.key === 'd') {
         this.onArrowPressed(RIGHT);
       }
-      if (e.key === ' ') {
+      if (e.key === 'D') {
         if (this.consolate) return this.consolate();
         this.printDebug();
       }
     });
 
     document.addEventListener('keyup', (e) => {
+      this.keys[e.code] = false;
+
       if (e.key === 'ArrowUp' || e.key === 'w') {
         this.onArrowReleased(UP);
       }
@@ -49,6 +55,14 @@ export class GameInput {
 
   get direction() {
     return this.directions[0];
+  }
+
+  update() {
+    this.lastKeys = { ...this.keys };
+  }
+
+  getActionJustPressed(keyCode: string) {
+    return this.keys[keyCode] && !this.lastKeys[keyCode];
   }
 
   onArrowPressed(direction: string) {

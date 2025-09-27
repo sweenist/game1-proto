@@ -1,3 +1,5 @@
+import { signals } from '../../constants';
+import { gameEvents } from '../../gameEngine/Events';
 import { GameObject } from '../../gameEngine/GameObject';
 import type { Main } from '../../gameEngine/Main';
 import { Sprite } from '../../gameEngine/Sprite';
@@ -20,6 +22,7 @@ export class SpriteText extends GameObject {
   showingIndex: number = 0;
   textSpeed: number = 64 as const;
   timeUntilNextShow: number = 128;
+  finalIndex: number;
 
   constructor(content: string) {
     super(new Vector2(32, 112));
@@ -33,9 +36,21 @@ export class SpriteText extends GameObject {
     });
 
     this.words = this.getFontSprites(content);
+    this.finalIndex = this.words.reduce((acc, word) => acc + word.wordWidth, 0);
   }
 
-  step(deltaTime: number, _root?: Main): void {
+  step(deltaTime: number, root?: Main): void {
+    const { input } = root!;
+    if (input.getActionJustPressed('Space')) {
+      if (this.showingIndex < this.finalIndex) {
+        this.showingIndex = this.finalIndex;
+        return;
+      }
+
+      // Close textbox since all text would have been revealed
+      gameEvents.emit(signals.endTextInteraction);
+    }
+
     this.timeUntilNextShow -= deltaTime;
     if (this.timeUntilNextShow <= 0) {
       this.showingIndex += 2;
