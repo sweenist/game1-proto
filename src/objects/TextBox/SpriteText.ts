@@ -1,4 +1,5 @@
 import { GameObject } from '../../gameEngine/GameObject';
+import type { Main } from '../../gameEngine/Main';
 import { Sprite } from '../../gameEngine/Sprite';
 import { resources } from '../../Resources';
 import { Vector2 } from '../../utils/vector';
@@ -16,8 +17,14 @@ export class SpriteText extends GameObject {
   content: string;
   backdrop: Sprite;
   words: SpriteFontProps[];
+  showingIndex: number = 0;
+  textSpeed: number = 64 as const;
+  timeUntilNextShow: number = 128;
+
   constructor(content: string) {
     super(new Vector2(32, 112));
+
+    this.drawLayer = 'USER_INTERFACE';
     this.content = content;
 
     this.backdrop = new Sprite({
@@ -26,6 +33,14 @@ export class SpriteText extends GameObject {
     });
 
     this.words = this.getFontSprites(content);
+  }
+
+  step(deltaTime: number, _root?: Main): void {
+    this.timeUntilNextShow -= deltaTime;
+    if (this.timeUntilNextShow <= 0) {
+      this.showingIndex += 2;
+      this.timeUntilNextShow = this.textSpeed;
+    }
   }
 
   private getFontSprites(content: string): SpriteFontProps[] {
@@ -79,6 +94,7 @@ export class SpriteText extends GameObject {
 
     let cursorX = x + PADDING_LEFT;
     let cursorY = y + PADDING_TOP;
+    let currentShowIndex = 0;
 
     this.words.forEach((word) => {
       const spaceRemaining = x + LINE_MAX_WIDTH - cursorX;
@@ -87,6 +103,8 @@ export class SpriteText extends GameObject {
         cursorX = x + PADDING_LEFT;
       }
       word.chars.forEach((char) => {
+        if (currentShowIndex > this.showingIndex) return;
+
         const { width, sprite } = char;
 
         const widthCharOffset = cursorX - 5;
@@ -94,6 +112,7 @@ export class SpriteText extends GameObject {
         sprite.draw(ctx, widthCharOffset, cursorY);
 
         cursorX += width + 1;
+        currentShowIndex += 1;
       });
 
       cursorX += 3;

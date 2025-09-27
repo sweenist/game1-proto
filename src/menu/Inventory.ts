@@ -17,6 +17,8 @@ export class Inventory extends GameObject {
   constructor() {
     super(new Vector2(0, 1));
 
+    this.drawLayer = 'USER_INTERFACE';
+
     this.items.push({ id: -1, image: resources.images.rod });
     this.items.push({ id: -2, image: resources.images.rod });
 

@@ -19,34 +19,35 @@ export class Main extends GameObject {
   level?: Level;
   camera: Camera;
   input: GameInput;
-  inventory: Inventory;
-  textBox: GameObject;
 
   constructor(params: MainGameParams) {
     super(params.position);
 
     this.camera = new Camera(params.ctx.canvas);
-    this.inventory = new Inventory();
     this.input = new GameInput();
-    this.textBox = new SpriteText(
-      "This is some test text. Here's some length! Now we have more to say..."
-    );
-    // this.textBox = new TextBox();
 
     this.addChild(this.camera);
   }
 
   ready(): void {
-    this.input.consolate = () => {
-      this.debug(0);
-      this.inventory.debug(1);
-    };
+    const inventory = new Inventory();
+    const textBox = new SpriteText(
+      "This is some test text. Here's some length! Now we have more to say..."
+    );
+
+    this.addChild(inventory);
+    this.addChild(textBox);
 
     gameEvents.on<Level>(signals.levelChange, this, (newLevel) => {
       console.info(`Leaving ${this.level?.constructor.name ?? 'None'}`);
       this.setLevel(newLevel);
       console.info(`Loading ${this.level?.constructor.name ?? 'Error'}`);
     });
+
+    this.input.consolate = () => {
+      this.debug(0);
+      inventory.debug(1);
+    };
   }
 
   setLevel(level: Level) {
@@ -60,21 +61,25 @@ export class Main extends GameObject {
 
   stepEntry(deltaTime: number, root: Main): void {
     super.stepEntry(deltaTime, root);
-    this.inventory.stepEntry(deltaTime, this);
-    this.textBox.stepEntry(deltaTime, this);
   }
 
   drawBackground(ctx: CanvasRenderingContext2D) {
     this.level?.background?.draw(ctx, 0, 0);
   }
 
-  drawForeground(ctx: CanvasRenderingContext2D) {
-    this.inventory.draw(
-      ctx,
-      this.inventory.position.x,
-      this.inventory.position.y
-    );
+  drawObjects(ctx: CanvasRenderingContext2D) {
+    this.children.forEach((child) => {
+      if (child.drawLayer !== 'USER_INTERFACE') {
+        child.draw(ctx, 0, 0);
+      }
+    });
+  }
 
-    this.textBox.draw(ctx, 0, 0);
+  drawForeground(ctx: CanvasRenderingContext2D) {
+    this.children.forEach((child) => {
+      if (child.drawLayer === 'USER_INTERFACE') {
+        child.draw(ctx, 0, 0);
+      }
+    });
   }
 }

@@ -8,7 +8,7 @@ export class GameObject {
   parent?: GameObject | null;
   isReady: boolean = false;
   isSolid: boolean = false;
-  drawLayer: 'DEFAULT' | 'GROUND' | 'ABOVE' = 'DEFAULT';
+  drawLayer: 'DEFAULT' | 'GROUND' | 'SKY' | 'USER_INTERFACE' = 'DEFAULT';
 
   constructor(position?: Vector2) {
     this.position = position ?? Vector2.Zero();
@@ -31,7 +31,12 @@ export class GameObject {
     // override
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false) {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    debug: boolean = false
+  ) {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
@@ -49,7 +54,12 @@ export class GameObject {
     });
   }
 
-  drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number, debug: boolean = false) {
+  drawImage(
+    _ctx: CanvasRenderingContext2D,
+    _x: number,
+    _y: number,
+    debug: boolean = false
+  ) {
     // override
   }
 
