@@ -45,7 +45,10 @@ export class Sprite extends GameObject {
 
     for (let row = 0; row < this.frameRows; row++) {
       for (let col = 0; col < this.frameColumns; col++) {
-        this.frameMap.set(index, new Vector2(col * this.frameSize.x, row * this.frameSize.y));
+        this.frameMap.set(
+          index,
+          new Vector2(col * this.frameSize.x, row * this.frameSize.y)
+        );
         index++;
       }
     }
@@ -57,9 +60,14 @@ export class Sprite extends GameObject {
     this.frameIndex = this.animations?.frame;
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false) {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    debug: boolean = false
+  ) {
     if (!this.resource.loaded) {
-      return
+      return;
     }
     let frameCoordX = 0;
     let frameCoordY = 0;
@@ -73,8 +81,10 @@ export class Sprite extends GameObject {
     const frameSizeX = this.frameSize.x;
     const frameSizeY = this.frameSize.y;
 
-    if(debug)
-      console.debug(`Sprite: ${this.name} -> size: ${frameSizeX}, ${frameSizeY}; pos: ${frameCoordX}, ${frameCoordY}`);
+    if (debug)
+      console.debug(
+        `Sprite: ${this.name} -> size: ${frameSizeX}, ${frameSizeY}; pos: ${frameCoordX}, ${frameCoordY}`
+      );
 
     ctx.drawImage(
       this.resource.image,

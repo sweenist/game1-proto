@@ -28,7 +28,9 @@ export class Main extends GameObject {
     this.camera = new Camera(params.ctx.canvas);
     this.inventory = new Inventory();
     this.input = new GameInput();
-    this.textBox = new SpriteText("This is some test text. Here's some length");
+    this.textBox = new SpriteText(
+      "This is some test text. Here's some length! Now we have more to say..."
+    );
     // this.textBox = new TextBox();
 
     this.addChild(this.camera);

@@ -5,11 +5,11 @@ import { Vector2 } from '../../utils/vector';
 import { getCharacterFrame, getCharacterWidth } from './SpriteMapping';
 
 type SpriteFontProps = {
-  wordWidth: number,
+  wordWidth: number;
   chars: {
-    width: number,
-    sprite: Sprite
-  }[]
+    width: number;
+    sprite: Sprite;
+  }[];
 };
 
 export class SpriteText extends GameObject {
@@ -25,7 +25,7 @@ export class SpriteText extends GameObject {
       frameSize: new Vector2(256, 64),
     });
 
-    this.words = this.getFontSprites(content)
+    this.words = this.getFontSprites(content);
   }
 
   private getFontSprites(content: string): SpriteFontProps[] {
@@ -41,24 +41,37 @@ export class SpriteText extends GameObject {
             name: char,
             frameColumns: 13,
             frameRows: 6,
-            frameIndex: getCharacterFrame(char)
-          })
+            frameIndex: getCharacterFrame(char),
+          }),
         };
       });
       return {
         wordWidth,
-        chars
+        chars,
       };
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false): void {
-    const positionOffset = new Vector2(x + this.position.x, y + this.position.y);
+  draw(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    debug: boolean = false
+  ): void {
+    const positionOffset = new Vector2(
+      x + this.position.x,
+      y + this.position.y
+    );
     this.backdrop.draw(ctx, positionOffset.x, positionOffset.y);
     this.drawImage(ctx, positionOffset.x, positionOffset.y);
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number, debug: boolean = false): void {
+  drawImage(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    debug: boolean = false
+  ): void {
     const PADDING_LEFT = 7;
     const PADDING_TOP = 7;
     const LINE_MAX_WIDTH = 240;
@@ -68,16 +81,22 @@ export class SpriteText extends GameObject {
     let cursorY = y + PADDING_TOP;
 
     this.words.forEach((word) => {
+      const spaceRemaining = x + LINE_MAX_WIDTH - cursorX;
+      if (spaceRemaining < word.wordWidth) {
+        cursorY += LINE_VERTICAL_HEIGHT;
+        cursorX = x + PADDING_LEFT;
+      }
       word.chars.forEach((char) => {
         const { width, sprite } = char;
 
         const widthCharOffset = cursorX - 5;
+
         sprite.draw(ctx, widthCharOffset, cursorY);
-        // console.debug(sprite.name, widthCharOffset, cursorY);
 
         cursorX += width + 1;
       });
+
+      cursorX += 3;
     });
-    cursorX += 3;
   }
 }

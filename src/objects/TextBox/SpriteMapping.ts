@@ -12,7 +12,7 @@ widthMap.set('r', 4);
 widthMap.set('t', 4);
 widthMap.set('u', 4);
 widthMap.set('u', 4);
-widthMap.set('w', 4);
+widthMap.set('w', 5);
 widthMap.set('x', 4);
 widthMap.set('y', 4);
 widthMap.set('z', 4);
