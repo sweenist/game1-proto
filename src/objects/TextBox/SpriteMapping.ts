@@ -9,7 +9,7 @@ widthMap.set('l', 3);
 widthMap.set('n', 4);
 
 widthMap.set('r', 4);
-widthMap.set('t', 3);
+widthMap.set('t', 4);
 widthMap.set('u', 4);
 widthMap.set('u', 4);
 widthMap.set('w', 4);
@@ -45,4 +45,3 @@ const frameMap = new Map<string, number>();
   });
 
 export const getCharacterFrame = (char: string) => frameMap.get(char);
-

@@ -14,7 +14,7 @@ class Resources {
       caveBackground: 'sprites/cave.png',
       caveForeground: 'sprites/cave-ground.png',
       exit: 'sprites/exit.png',
-      fontWhite: 'sprites/spite-font-white.png',
+      fontWhite: 'sprites/sprite-font-white.png',
       ground: 'sprites/ground.png',
       hero: 'sprites/hero-sheet.png',
       knight: 'sprites/knight-sheet.png',
