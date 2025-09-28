@@ -62,7 +62,9 @@ export class GameInput {
   }
 
   getActionJustPressed(keyCode: string) {
-    return this.keys[keyCode] && !this.lastKeys[keyCode];
+    const justPressed = this.keys[keyCode] && !this.lastKeys[keyCode];
+    if (justPressed) console.debug(`${keyCode} was pressed`);
+    return justPressed;
   }
 
   onArrowPressed(direction: string) {

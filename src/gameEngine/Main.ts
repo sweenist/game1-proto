@@ -40,8 +40,9 @@ export class Main extends GameObject {
     });
 
     gameEvents.on(signals.heroInteraction, this, () => {
+      //FIXME: double rendering issue
       const textBox = new SpriteText(
-        "This is some test text. Here's some length! Now we have more to say..."
+        'Greetings. The Engine greets you warmly...'
       );
       this.addChild(textBox);
       gameEvents.emit(signals.startTextInteraction);

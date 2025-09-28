@@ -37,7 +37,9 @@ class Events {
     this.subscriptions.forEach((sub) => {
       if (sub.eventName === eventName) {
         if (eventName != signals.heroPosition)
-          console.debug(`emitting ${eventName}`);
+          console.debug(
+            `emitting ${eventName} from ${sub.caller.constructor.name}`
+          );
         sub.callback(value);
       }
     });
