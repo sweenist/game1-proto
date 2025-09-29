@@ -24,6 +24,7 @@ export class SpriteText extends GameObject {
   textSpeed: number = 64 as const;
   timeUntilNextShow: number = 128;
   finalIndex: number;
+  portrait?: Sprite | null;
 
   constructor(content: Dialogue) {
     super(new Vector2(32, 112));
@@ -36,6 +37,14 @@ export class SpriteText extends GameObject {
       frameSize: new Vector2(256, 64),
     });
 
+    this.portrait = content.portraitFrame
+      ? new Sprite({
+          resource: resources.images.portraits,
+          frameColumns: 4,
+          frameIndex: content.portraitFrame!,
+        })
+      : null;
+
     this.words = this.getFontSprites(content);
     this.finalIndex = this.words.reduce((acc, word) => acc + word.wordWidth, 0);
   }
@@ -44,6 +53,7 @@ export class SpriteText extends GameObject {
     const { input } = root!;
     if (input.getActionJustPressed('Space')) {
       if (this.showingIndex < this.finalIndex) {
+        console.debug(`text indices: ${this.showingIndex}|${this.finalIndex}`);
         this.showingIndex = this.finalIndex;
         return;
       }
@@ -104,8 +114,8 @@ export class SpriteText extends GameObject {
     y: number,
     debug: boolean = false
   ): void {
-    const PADDING_LEFT = 7;
-    const PADDING_TOP = 7;
+    const PADDING_LEFT = this.portrait ? 27 : 7;
+    const PADDING_TOP = this.portrait ? 9 : 7;
     const LINE_MAX_WIDTH = 240;
     const LINE_VERTICAL_HEIGHT = 14;
 
@@ -134,5 +144,8 @@ export class SpriteText extends GameObject {
 
       cursorX += 3;
     });
+    if (this.portrait) {
+      this.portrait.draw(ctx, x + 7, y + 7);
+    }
   }
 }
