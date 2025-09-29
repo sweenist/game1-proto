@@ -1,3 +1,6 @@
+import { DOWN, LEFT, RIGHT, UP } from '../constants';
+import type { Direction } from '../types';
+
 export class Vector2 {
   x: number;
   y: number;
@@ -26,6 +29,19 @@ export class Vector2 {
   */
   equals(that: Vector2) {
     return this.x === that.x && this.y === that.y;
+  }
+
+  adjacent(facing: Direction) {
+    switch (facing) {
+      case UP:
+        return new Vector2(this.x, this.y - 16);
+      case DOWN:
+        return new Vector2(this.x, this.y + 16);
+      case LEFT:
+        return new Vector2(this.x - 16, this.y);
+      case RIGHT:
+        return new Vector2(this.x + 16, this.y);
+    }
   }
 
   /*

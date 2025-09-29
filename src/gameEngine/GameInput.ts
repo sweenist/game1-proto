@@ -1,10 +1,8 @@
-export const LEFT = 'LEFT';
-export const RIGHT = 'RIGHT';
-export const UP = 'UP';
-export const DOWN = 'DOWN';
+import { UP, DOWN, LEFT, RIGHT } from '../constants';
+import type { Direction } from '../types';
 
 export class GameInput {
-  directions: string[] = [];
+  directions: Direction[] = [];
   keys: { [key: string]: boolean } = {};
   lastKeys: { [key: string]: boolean } = {};
   debugMessage: string = '';
@@ -67,13 +65,13 @@ export class GameInput {
     return justPressed;
   }
 
-  onArrowPressed(direction: string) {
+  onArrowPressed(direction: Direction) {
     if (this.directions.indexOf(direction) === -1) {
       this.directions.unshift(direction);
     }
   }
 
-  onArrowReleased(direction: string) {
+  onArrowReleased(direction: Direction) {
     const index = this.directions.indexOf(direction);
     if (index > -1) {
       this.directions.splice(index, 1);

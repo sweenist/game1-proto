@@ -1,3 +1,4 @@
+import { Npc } from '../actors/Npc';
 import { signals } from '../constants';
 import { Inventory } from '../menu/Inventory';
 import { SpriteText } from '../objects/TextBox/SpriteText';
@@ -39,18 +40,24 @@ export class Main extends GameObject {
       console.info(`Loading ${this.level?.constructor.name ?? 'Error'}`);
     });
 
-    gameEvents.on(signals.heroInteraction, this, () => {
-      //FIXME: double rendering issue
-      const textBox = new SpriteText(
-        'Greetings. The Engine greets you warmly...'
-      );
-      this.addChild(textBox);
-      gameEvents.emit(signals.startTextInteraction);
+    gameEvents.on<GameObject>(signals.heroInteraction, this, (interaction) => {
+      if (interaction instanceof Npc) {
+        //TODO: Implement ActionableObject
+        const content = interaction.getContent();
 
-      const textBoxId = gameEvents.on(signals.endTextInteraction, this, () => {
-        textBox.destroy();
-        gameEvents.off(textBoxId);
-      });
+        const textBox = new SpriteText(content);
+        this.addChild(textBox);
+
+        const textBoxId = gameEvents.on(
+          signals.endTextInteraction,
+          this,
+          () => {
+            textBox.destroy();
+            gameEvents.off(textBoxId);
+          }
+        );
+        gameEvents.emit(signals.startTextInteraction);
+      }
     });
 
     this.input.consolate = () => {

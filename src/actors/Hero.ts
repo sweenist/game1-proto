@@ -1,6 +1,6 @@
 import { Animations } from '../gameEngine/Animations';
 import { FrameIndexPattern } from '../gameEngine/FrameIndexPattern';
-import { DOWN, LEFT, RIGHT, UP } from '../gameEngine/GameInput';
+import { DOWN, LEFT, RIGHT, UP } from '../constants';
 import { GameObject } from '../gameEngine/GameObject';
 import { resources } from '../Resources';
 import { Sprite } from '../gameEngine/Sprite';
@@ -23,9 +23,10 @@ import { gameEvents } from '../gameEngine/Events';
 import { signals } from '../constants';
 import type { ItemEventMetaData } from '../types/eventTypes';
 import type { Main } from '../gameEngine/Main';
+import type { Direction } from '../types';
 
 export class Hero extends GameObject {
-  facingDirection: string;
+  facingDirection: Direction;
   destinationPosition: Vector2;
   body: Sprite;
   shadow: Sprite;

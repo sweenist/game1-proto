@@ -32,8 +32,23 @@ export class CaveLevel extends Level {
     const hero = new Hero(this.actorPosition);
     this.addChild(hero);
 
-    const knight = new Npc(new Vector2(gridCells(5), gridCells(5)));
-    this.addChild(knight);
+    const knight1 = new Npc({
+      position: new Vector2(gridCells(5), gridCells(5)),
+      content: {
+        message: 'Yo, yo, yo! You a venturer?',
+        portraitFrame: 1,
+      },
+    });
+    this.addChild(knight1);
+
+    const knight2 = new Npc({
+      position: new Vector2(gridCells(2), gridCells(7)),
+      content: {
+        message: 'Get out! Guild members only, punk!',
+        portraitFrame: 1,
+      },
+    });
+    this.addChild(knight2);
 
     const rod = new Rod(gridCells(9), gridCells(7));
     this.addChild(rod);

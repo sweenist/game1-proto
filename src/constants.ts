@@ -7,3 +7,8 @@ export const signals = {
   sceneExit: 'SCENE_EXIT',
   levelChange: 'LEVEL_CHANGE',
 };
+
+export const LEFT = 'LEFT';
+export const RIGHT = 'RIGHT';
+export const UP = 'UP';
+export const DOWN = 'DOWN';

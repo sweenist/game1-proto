@@ -4,6 +4,7 @@ import { GameObject } from '../../gameEngine/GameObject';
 import type { Main } from '../../gameEngine/Main';
 import { Sprite } from '../../gameEngine/Sprite';
 import { resources } from '../../Resources';
+import type { Dialogue } from '../../types';
 import { Vector2 } from '../../utils/vector';
 import { getCharacterFrame, getCharacterWidth } from './SpriteMapping';
 
@@ -16,7 +17,7 @@ type SpriteFontProps = {
 };
 
 export class SpriteText extends GameObject {
-  content: string;
+  content: Dialogue;
   backdrop: Sprite;
   words: SpriteFontProps[];
   showingIndex: number = 0;
@@ -24,7 +25,7 @@ export class SpriteText extends GameObject {
   timeUntilNextShow: number = 128;
   finalIndex: number;
 
-  constructor(content: string) {
+  constructor(content: Dialogue) {
     super(new Vector2(32, 112));
 
     this.drawLayer = 'USER_INTERFACE';
@@ -58,8 +59,9 @@ export class SpriteText extends GameObject {
     }
   }
 
-  private getFontSprites(content: string): SpriteFontProps[] {
-    return content.split(' ').map((word) => {
+  private getFontSprites(content: Dialogue): SpriteFontProps[] {
+    const { message } = content;
+    return message.split(' ').map((word) => {
       let wordWidth = 0;
       const chars = word.split('').map((char) => {
         const charWidth = getCharacterWidth(char);
