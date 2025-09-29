@@ -93,9 +93,15 @@ export class Hero extends GameObject {
     }
 
     const { input } = root;
-    if (input.getActionJustPressed('Space')) {
+    if (input.getActionJustPressed('Space') && !this.isLocked) {
       console.debug('ACTION');
-      gameEvents.emit(signals.heroInteraction);
+      const interactablePosition = this.parent?.children.find((c) => {
+        return c.position.equals(this.position.adjacent(this.facingDirection));
+      });
+
+      if (interactablePosition) {
+        gameEvents.emit(signals.heroInteraction, interactablePosition);
+      }
     }
 
     const distance = moveTowards(this.position, this.destinationPosition, 1);
