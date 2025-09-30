@@ -67,6 +67,7 @@ export class Sprite extends GameObject {
     debug: boolean = false
   ) {
     if (!this.resource.loaded) {
+      if (debug) console.debug(`${this.resource.name} is not loaded`);
       return;
     }
     let frameCoordX = 0;

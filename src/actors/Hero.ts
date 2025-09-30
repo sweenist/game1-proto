@@ -185,4 +185,17 @@ export class Hero extends GameObject {
     );
     this.addChild(this.itemPickupShell);
   }
+
+  debug(level: number) {
+    const arrow = '-'.repeat(level + 1);
+
+    console.debug(
+      `${arrow}> ${this.constructor.name}, position: ${this.position} [${
+        this.position.x / 16
+      }, ${this.position.y / 16}] Parent: ${this.parent?.constructor.name}`
+    );
+    this.children.forEach((child) => {
+      child.debug(level + 1);
+    });
+  }
 }

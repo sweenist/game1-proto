@@ -61,6 +61,7 @@ export class GameObject {
     debug: boolean = false
   ) {
     // override
+    if (debug) console.debug(this);
   }
 
   destroy() {

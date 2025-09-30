@@ -29,10 +29,12 @@ class Resources {
 
     Object.keys(this.toLoad).forEach((key: string) => {
       const image = new Image();
+
       image.src = this.toLoad[key];
       this.images[key] = { image, loaded: false, name: key };
 
       image.onload = () => {
+        console.info(`Loading resource: ${key}`);
         this.images[key].loaded = true;
       };
     });
