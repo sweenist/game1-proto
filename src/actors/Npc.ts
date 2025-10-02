@@ -1,18 +1,19 @@
 import { GameObject } from '../gameEngine/GameObject';
 import { Sprite } from '../gameEngine/Sprite';
+import { storyFlags } from '../gameEngine/StoryFlags';
 import { resources } from '../Resources';
-import type { Dialogue } from '../types';
+import type { DialogueScenario } from '../types';
 import { Vector2 } from '../utils/vector';
 
 export interface NpcParams {
   position?: Vector2;
-  content: Dialogue;
+  content: DialogueScenario[];
 }
 
 export class Npc extends GameObject {
   shadow: Sprite;
   body: Sprite;
-  content: Dialogue;
+  content: DialogueScenario[];
 
   constructor(params: NpcParams) {
     super(params.position);
@@ -39,7 +40,12 @@ export class Npc extends GameObject {
     this.addChild(this.body);
   }
 
-  getContent() {
-    return this.content;
+  getContent(): DialogueScenario | null {
+    const match = storyFlags.getScenario(this.content);
+    if (!match) {
+      console.warn(`No relevant dialog was found for ${this.content}`);
+      return null;
+    }
+    return match;
   }
 }

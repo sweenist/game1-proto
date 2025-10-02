@@ -8,6 +8,7 @@ import { gameEvents } from './Events';
 import { GameInput } from './GameInput';
 import { GameObject } from './GameObject';
 import { Level } from './Level';
+import { storyFlags } from './StoryFlags';
 
 export interface MainGameParams {
   ctx: CanvasRenderingContext2D;
@@ -44,8 +45,15 @@ export class Main extends GameObject {
       if (interaction instanceof Npc) {
         //TODO: Implement ActionableObject
         const content = interaction.getContent();
+        if (content === null) return;
 
-        const textBox = new SpriteText(content);
+        if (content.addFlag) {
+          console.info('Add Flag:', content.addFlag);
+          storyFlags.add(content.addFlag);
+          storyFlags.enumerate();
+        }
+
+        const textBox = new SpriteText(content!);
         this.addChild(textBox);
 
         const textBoxId = gameEvents.on(

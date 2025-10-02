@@ -8,6 +8,11 @@ export const signals = {
   levelChange: 'LEVEL_CHANGE',
 };
 
+export const flags = {
+  caveKnightTalkedA: 'CAVE_KNIGHT_TALKED_A',
+  caveKnightTalkedB: 'CAVE_KNIGHT_TALKED_B',
+};
+
 export const LEFT = 'LEFT';
 export const RIGHT = 'RIGHT';
 export const UP = 'UP';

@@ -1,6 +1,6 @@
 import { Hero } from '../actors/Hero';
 import { Npc } from '../actors/Npc';
-import { signals } from '../constants';
+import { flags, signals } from '../constants';
 import { gameEvents } from '../gameEngine/Events';
 import { Level, type LevelParams } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
@@ -34,19 +34,37 @@ export class CaveLevel extends Level {
 
     const knight1 = new Npc({
       position: new Vector2(gridCells(5), gridCells(5)),
-      content: {
-        message: 'Yo, yo, yo! You a venturer?',
-        portraitFrame: 1,
-      },
+      content: [
+        {
+          message: 'Yo. Be careful, eh?',
+          requires: [flags.caveKnightTalkedA],
+          portraitFrame: 1,
+        },
+        {
+          message: 'Yo, yo, yo! You a venturer?',
+          addFlag: flags.caveKnightTalkedA,
+          portraitFrame: 1,
+        },
+      ],
     });
     this.addChild(knight1);
 
     const knight2 = new Npc({
       position: new Vector2(gridCells(2), gridCells(7)),
-      content: {
-        message: 'Get out! Guild members only, punk!',
-        portraitFrame: 1,
-      },
+      content: [
+        {
+          message:
+            "Oh? You talked to the other guy, eh? A Venturer you be? Here's a key",
+          requires: [flags.caveKnightTalkedA],
+          addFlag: flags.caveKnightTalkedB,
+
+          portraitFrame: 1,
+        },
+        {
+          message: 'Get out! Guild members only, punk!',
+          portraitFrame: 1,
+        },
+      ],
     });
     this.addChild(knight2);
 

@@ -4,7 +4,7 @@ import { GameObject } from '../../gameEngine/GameObject';
 import type { Main } from '../../gameEngine/Main';
 import { Sprite } from '../../gameEngine/Sprite';
 import { resources } from '../../Resources';
-import type { Dialogue } from '../../types';
+import type { DialogueScenario } from '../../types';
 import { Vector2 } from '../../utils/vector';
 import { getCharacterFrame, getCharacterWidth } from './SpriteMapping';
 
@@ -17,7 +17,7 @@ type SpriteFontProps = {
 };
 
 export class SpriteText extends GameObject {
-  content: Dialogue;
+  content: DialogueScenario;
   backdrop: Sprite;
   words: SpriteFontProps[];
   showingIndex: number = 0;
@@ -26,7 +26,7 @@ export class SpriteText extends GameObject {
   finalIndex: number;
   portrait?: Sprite | null;
 
-  constructor(content: Dialogue) {
+  constructor(content: DialogueScenario) {
     super(new Vector2(32, 112));
 
     this.drawLayer = 'USER_INTERFACE';
@@ -45,7 +45,7 @@ export class SpriteText extends GameObject {
         })
       : null;
 
-    this.words = this.getFontSprites(content);
+    this.words = this.getFontSprites();
     this.finalIndex = this.words.reduce((acc, word) => acc + word.wordWidth, 0);
   }
 
@@ -69,8 +69,8 @@ export class SpriteText extends GameObject {
     }
   }
 
-  private getFontSprites(content: Dialogue): SpriteFontProps[] {
-    const { message } = content;
+  private getFontSprites(): SpriteFontProps[] {
+    const { message } = this.content;
     return message.split(' ').map((word) => {
       let wordWidth = 0;
       const chars = word.split('').map((char) => {
