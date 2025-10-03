@@ -46,14 +46,16 @@ export class SpriteText extends GameObject {
       : null;
 
     this.words = this.getFontSprites();
-    this.finalIndex = this.words.reduce((acc, word) => acc + word.wordWidth, 0);
+    this.finalIndex = this.words.reduce(
+      (acc, word) => acc + word.chars.length,
+      0
+    );
   }
 
   step(deltaTime: number, root?: Main): void {
     const { input } = root!;
     if (input.getActionJustPressed('Space')) {
       if (this.showingIndex < this.finalIndex) {
-        console.debug(`text indices: ${this.showingIndex}|${this.finalIndex}`);
         this.showingIndex = this.finalIndex;
         return;
       }
@@ -76,6 +78,7 @@ export class SpriteText extends GameObject {
       const chars = word.split('').map((char) => {
         const charWidth = getCharacterWidth(char);
         wordWidth += charWidth;
+
         return {
           width: charWidth,
           sprite: new Sprite({
@@ -94,12 +97,7 @@ export class SpriteText extends GameObject {
     });
   }
 
-  draw(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    debug: boolean = false
-  ): void {
+  draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     const positionOffset = new Vector2(
       x + this.position.x,
       y + this.position.y
@@ -108,12 +106,7 @@ export class SpriteText extends GameObject {
     this.drawImage(ctx, positionOffset.x, positionOffset.y);
   }
 
-  drawImage(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    debug: boolean = false
-  ): void {
+  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
     const PADDING_LEFT = this.portrait ? 27 : 7;
     const PADDING_TOP = this.portrait ? 9 : 7;
     const LINE_MAX_WIDTH = 240;
@@ -133,7 +126,6 @@ export class SpriteText extends GameObject {
         if (currentShowIndex > this.showingIndex) return;
 
         const { width, sprite } = char;
-
         const widthCharOffset = cursorX - 5;
 
         sprite.draw(ctx, widthCharOffset, cursorY);
