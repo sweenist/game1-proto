@@ -3,6 +3,10 @@ import type { Sprite } from './Sprite';
 import { gameEvents } from './Events';
 import type { Vector2 } from '../utils/vector';
 
+export interface WallConfig {
+  walls: { x: number; y: number }[];
+}
+
 export type LevelParams = {
   actorPosition: Vector2;
 };
@@ -12,10 +16,11 @@ export class Level extends GameObject {
   walls: Set<string> = new Set<string>();
   actorPosition: Vector2;
 
-  constructor(params: LevelParams) {
+  constructor(params: LevelParams, config?: WallConfig) {
     super();
 
     this.actorPosition = params.actorPosition;
+    this.defineWalls(config);
   }
 
   destroy(): void {
@@ -24,7 +29,9 @@ export class Level extends GameObject {
     super.destroy();
   }
 
-  defineWalls() {
-    // Override
+  defineWalls(config?: WallConfig) {
+    config?.walls.forEach(({ x, y }) => {
+      this.walls.add(`x: ${x}, y: ${y}`);
+    });
   }
 }

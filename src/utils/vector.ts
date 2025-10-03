@@ -15,7 +15,7 @@ export class Vector2 {
   }
 
   public toString(): string {
-    return `X: ${this.x}, Y: ${this.y}`;
+    return `x: ${this.x}, y: ${this.y}`;
   }
 
   public static Zero(): Vector2 {

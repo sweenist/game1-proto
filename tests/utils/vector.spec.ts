@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Vector2 } from '@src/utils/vector'
+import { Vector2 } from '@src/utils/vector';
 
 describe('Vector2', () => {
   it('should duplicate existing vector', () => {
@@ -14,6 +14,6 @@ describe('Vector2', () => {
     const vec = new Vector2(80, 98);
     const target = vec.toString();
 
-    expect(target).toBe("X: 80, Y: 98");
-  })
-})
+    expect(target).toBe('x: 80, y: 98');
+  });
+});
