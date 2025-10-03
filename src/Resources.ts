@@ -34,7 +34,6 @@ class Resources {
       this.images[key] = { image, loaded: false, name: key };
 
       image.onload = () => {
-        console.info(`Loading resource: ${key}`);
         this.images[key].loaded = true;
       };
     });

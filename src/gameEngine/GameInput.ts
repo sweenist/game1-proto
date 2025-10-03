@@ -45,9 +45,6 @@ export class GameInput {
       if (e.key === 'ArrowRight' || e.key === 'd') {
         this.onArrowReleased(RIGHT);
       }
-      if (e.key === 'p') {
-        console.info(this.constructor.name, 'How does type work?');
-      }
     });
   }
 
@@ -61,7 +58,6 @@ export class GameInput {
 
   getActionJustPressed(keyCode: string) {
     const justPressed = this.keys[keyCode] && !this.lastKeys[keyCode];
-    if (justPressed) console.debug(`${keyCode} was pressed`);
     return justPressed;
   }
 

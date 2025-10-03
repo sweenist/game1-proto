@@ -38,7 +38,8 @@ class Events {
       if (sub.eventName === eventName) {
         if (eventName != signals.heroPosition)
           console.debug(
-            `emitting ${eventName} from ${sub.caller.constructor.name}`
+            `emitting ${eventName} from ${sub.caller.constructor.name}`,
+            sub.callback
           );
         sub.callback(value);
       }

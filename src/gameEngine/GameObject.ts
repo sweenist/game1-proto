@@ -35,7 +35,7 @@ export class GameObject {
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
-    debug: boolean = false
+    _debug: boolean = false
   ) {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
