@@ -1,5 +1,5 @@
 import { Hero } from '@src/actors/Hero';
-import { DOWN } from '@src/gameEngine/GameInput';
+import { DOWN } from '@src/constants';
 import { Vector2 } from '@src/utils/vector';
 import { describe, expect, it } from 'vitest';
 
