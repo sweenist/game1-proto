@@ -1,3 +1,4 @@
+import { Hero } from '../actors/Hero';
 import { Npc } from '../actors/Npc';
 import { signals, fadeIn, fadeOut } from '../constants';
 import { Inventory } from '../menu/Inventory';
@@ -38,7 +39,6 @@ export class Main extends GameObject {
 
   ready(): void {
     const inventory = new Inventory();
-    gameEvents.emit(signals.unlockHero);
 
     this.addChild(inventory);
 
@@ -97,13 +97,29 @@ export class Main extends GameObject {
   }
 
   drawBackground(ctx: CanvasRenderingContext2D) {
-    this.level?.background?.draw(ctx, 0, 0);
+    if (this.level?.background) {
+      // if (this.isFading) {
+      //   ctx.save();
+      //   ctx.filter = `saturate(${100 - this.fadeAlpha * 100}%)`;
+      //   this.level.background.draw(ctx, 0, 0);
+      //   ctx.restore();
+      // } else {
+      this.level.background.draw(ctx, 0, 0);
+      // }
+    }
   }
 
   drawObjects(ctx: CanvasRenderingContext2D) {
     this.children.forEach((child) => {
       if (child.drawLayer !== 'USER_INTERFACE') {
+        // if (this.isFading && !(child instanceof Hero)) {
+        //   ctx.save();
+        //   ctx.filter = `saturate(${100 - (this.fadeAlpha * 100)}%)`;
+        //   child.draw(ctx, 0, 0);
+        //   ctx.restore();
+        // } else {
         child.draw(ctx, 0, 0);
+        // }
       }
     });
   }
@@ -127,12 +143,12 @@ export class Main extends GameObject {
   startFade(onComplete: () => void) {
     this.isFading = true;
     this.fadeDirection = fadeOut;
-    this.fadeAlpha = 0.5;
+    this.fadeAlpha = 0.75;
     this.onFadeOutComplete = onComplete;
   }
 
   updateFade(deltaTime: number) {
-    const fadeSpeed = 0.004;
+    const fadeSpeed = 0.002;
     this.fadeAlpha += this.fadeDirection * fadeSpeed * deltaTime;
 
     if (this.fadeDirection === fadeOut && this.fadeAlpha <= 0) {
