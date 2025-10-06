@@ -42,7 +42,7 @@ export class OutdoorLevel extends Level {
       gameEvents.emit(
         signals.levelChange,
         new CaveLevel({
-          actorPosition: new Vector2(gridCells(2), gridCells(3)),
+          actorPosition: new Vector2(gridCells(3), gridCells(6)),
         })
       );
     });

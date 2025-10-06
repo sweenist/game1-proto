@@ -7,3 +7,5 @@ export type DialogueScenario = {
   addFlag?: string;
   portraitFrame?: number;
 };
+
+export type fader = -1 | 1;

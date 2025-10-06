@@ -2,7 +2,7 @@ import { Hero } from '../actors/Hero';
 import { Npc } from '../actors/Npc';
 import { flags, signals } from '../constants';
 import { gameEvents } from '../gameEngine/Events';
-import { Level, type LevelParams, type WallConfig } from '../gameEngine/Level';
+import { Level, type LevelParams } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { Exit } from '../objects/Exit';
 import { Rod } from '../objects/Rod/Rod';

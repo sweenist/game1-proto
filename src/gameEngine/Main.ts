@@ -1,7 +1,8 @@
 import { Npc } from '../actors/Npc';
-import { signals } from '../constants';
+import { signals, fadeIn, fadeOut } from '../constants';
 import { Inventory } from '../menu/Inventory';
 import { SpriteText } from '../objects/TextBox/SpriteText';
+import type { fader } from '../types';
 import type { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
 import { gameEvents } from './Events';
@@ -20,6 +21,11 @@ export class Main extends GameObject {
   level?: Level;
   camera: Camera;
   input: GameInput;
+  //Fade Effect
+  fadeAlpha: number = 0;
+  fadeDirection: fader = fadeIn;
+  isFading: boolean = false;
+  onFadeOutComplete?: () => void;
 
   constructor(params: MainGameParams) {
     super(params.position);
@@ -32,12 +38,13 @@ export class Main extends GameObject {
 
   ready(): void {
     const inventory = new Inventory();
+    gameEvents.emit(signals.unlockHero);
 
     this.addChild(inventory);
 
     gameEvents.on<Level>(signals.levelChange, this, (newLevel) => {
       console.info(`Leaving ${this.level?.constructor.name ?? 'None'}`);
-      this.setLevel(newLevel);
+      this.startFade(() => this.setLevel(newLevel));
       console.info(`Loading ${this.level?.constructor.name ?? 'Error'}`);
     });
 
@@ -85,6 +92,8 @@ export class Main extends GameObject {
 
   stepEntry(deltaTime: number, root: Main): void {
     super.stepEntry(deltaTime, root);
+
+    if (this.isFading) this.updateFade(deltaTime);
   }
 
   drawBackground(ctx: CanvasRenderingContext2D) {
@@ -105,5 +114,35 @@ export class Main extends GameObject {
         child.draw(ctx, 0, 0);
       }
     });
+
+    if (this.isFading) {
+      ctx.save();
+      ctx.globalAlpha = 1 - this.fadeAlpha;
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.restore();
+    }
+  }
+
+  startFade(onComplete: () => void) {
+    this.isFading = true;
+    this.fadeDirection = fadeOut;
+    this.fadeAlpha = 0.5;
+    this.onFadeOutComplete = onComplete;
+  }
+
+  updateFade(deltaTime: number) {
+    const fadeSpeed = 0.004;
+    this.fadeAlpha += this.fadeDirection * fadeSpeed * deltaTime;
+
+    if (this.fadeDirection === fadeOut && this.fadeAlpha <= 0) {
+      this.fadeAlpha = 0;
+      this.fadeDirection = 1;
+      if (this.onFadeOutComplete) this.onFadeOutComplete();
+      this.onFadeOutComplete = undefined;
+    } else if (this.fadeDirection === fadeIn && this.fadeAlpha >= 1) {
+      this.fadeAlpha = fadeIn;
+      this.isFading = false;
+    }
   }
 }

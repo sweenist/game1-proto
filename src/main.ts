@@ -12,7 +12,7 @@ const ctx = canvas.getContext('2d')!;
 const mainScene = new Main({ ctx });
 
 mainScene.setLevel(
-  new CaveLevel({ actorPosition: new Vector2(gridCells(2), gridCells(3)) })
+  new CaveLevel({ actorPosition: new Vector2(gridCells(3), gridCells(6)) })
 );
 
 const update = (deltaTime: number) => {

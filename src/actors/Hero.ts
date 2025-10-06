@@ -51,14 +51,14 @@ export class Hero extends GameObject {
       frameIndex: 1,
       position: new Vector2(-8, -20),
       animations: new Animations({
-        walkDown: new FrameIndexPattern(WALK_DOWN),
-        walkUp: new FrameIndexPattern(WALK_UP),
-        walkLeft: new FrameIndexPattern(WALK_LEFT),
-        walkRight: new FrameIndexPattern(WALK_RIGHT),
         standDown: new FrameIndexPattern(STAND_DOWN),
         standUp: new FrameIndexPattern(STAND_UP),
         standLeft: new FrameIndexPattern(STAND_LEFT),
         standRight: new FrameIndexPattern(STAND_RIGHT),
+        walkDown: new FrameIndexPattern(WALK_DOWN),
+        walkUp: new FrameIndexPattern(WALK_UP),
+        walkLeft: new FrameIndexPattern(WALK_LEFT),
+        walkRight: new FrameIndexPattern(WALK_RIGHT),
         pickUpDown: new FrameIndexPattern(PICK_UP_DOWN),
       }),
     });
@@ -115,7 +115,7 @@ export class Hero extends GameObject {
   }
 
   tryMove(root: Main) {
-    if (this.isLocked) return;
+    if (this.isLocked || root.isFading) return;
 
     const { input, level } = root;
 
