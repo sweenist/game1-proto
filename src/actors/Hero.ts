@@ -95,7 +95,6 @@ export class Hero extends GameObject {
 
     const { input } = root;
     if (input.getActionJustPressed('Space') && !this.isLocked) {
-      console.debug('ACTION');
       const interactablePosition = this.parent?.children.find((c) => {
         return c.position.equals(this.position.adjacent(this.facingDirection));
       });

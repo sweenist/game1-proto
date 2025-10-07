@@ -38,7 +38,6 @@ export class OutdoorLevel extends Level {
 
   ready(): void {
     gameEvents.on(signals.sceneExit, this, () => {
-      console.info(`Called from ${this.constructor.name} in Outdoorlevel`);
       gameEvents.emit(
         signals.levelChange,
         new CaveLevel({

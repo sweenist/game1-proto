@@ -17,7 +17,6 @@ export interface SpriteParams {
 
 export class Sprite extends GameObject {
   resource: ImageResource;
-  name: string;
   frameSize: Vector2;
   frameColumns: number;
   frameRows: number;
@@ -29,7 +28,7 @@ export class Sprite extends GameObject {
   constructor(params: SpriteParams) {
     super(params.position); // relative offset
     this.resource = params.resource;
-    this.name = params.name ?? '';
+    this.name = params.name ?? this.resource.name;
     this.frameSize = params.frameSize ?? new Vector2(16, 16);
     this.frameColumns = params.frameColumns ?? 1;
     this.frameRows = params.frameRows ?? 1;

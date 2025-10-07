@@ -8,6 +8,7 @@ export class GameObject {
   parent?: GameObject | null;
   isReady: boolean = false;
   isSolid: boolean = false;
+  name?: string;
   drawLayer: 'DEFAULT' | 'GROUND' | 'SKY' | 'USER_INTERFACE' = 'DEFAULT';
 
   constructor(position?: Vector2) {

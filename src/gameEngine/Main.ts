@@ -45,7 +45,7 @@ export class Main extends GameObject {
     gameEvents.on<Level>(signals.levelChange, this, (newLevel) => {
       console.info(`Leaving ${this.level?.constructor.name ?? 'None'}`);
       this.startFade(() => this.setLevel(newLevel));
-      console.info(`Loading ${this.level?.constructor.name ?? 'Error'}`);
+      console.info(`Loading ${newLevel?.constructor.name ?? 'Error'}`);
     });
 
     gameEvents.on<GameObject>(signals.heroInteraction, this, (interaction) => {

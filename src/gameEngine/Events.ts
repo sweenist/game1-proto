@@ -51,7 +51,9 @@ class Events {
       (sub) => sub.caller !== caller
     );
 
-    console.debug(`unsubscribed caller ${caller.constructor.name}`);
+    console.debug(
+      `unsubscribed caller ${caller.name ?? caller.constructor.name}`
+    );
   }
 }
 
