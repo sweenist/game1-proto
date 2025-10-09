@@ -85,6 +85,14 @@ export class Hero extends GameObject {
       this,
       () => (this.isLocked = false)
     );
+
+    gameEvents.on(signals.levelChanging, this, () => {
+      this.isLocked = true;
+      this.destinationPosition = this.position.duplicate();
+      this.body.animations?.play(
+        'stand'.concat(toTitleCase(this.facingDirection))
+      );
+    });
   }
 
   step(deltaTime: number, root: Main) {
