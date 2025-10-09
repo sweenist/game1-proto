@@ -76,7 +76,7 @@ export class CaveLevel extends Level {
   ready(): void {
     gameEvents.on(signals.sceneExit, this, () => {
       gameEvents.emit(
-        signals.levelChange,
+        signals.levelChanging,
         new OutdoorLevel({
           actorPosition: new Vector2(gridCells(6), gridCells(4)),
         })

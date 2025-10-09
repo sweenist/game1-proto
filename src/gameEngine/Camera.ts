@@ -29,9 +29,9 @@ export class Camera extends GameObject {
       this.centerPositionOnTarget(value);
     });
 
-    gameEvents.on<Level>(signals.levelChange, this, (level) => {
+    gameEvents.on<Level>(signals.levelChanged, this, (level) => {
       this.centerPositionOnTarget(level.actorPosition);
-    })
+    });
   }
 
   centerPositionOnTarget(target: Vector2) {

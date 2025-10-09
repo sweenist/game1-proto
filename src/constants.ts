@@ -5,7 +5,8 @@ export const signals = {
   endTextInteraction: 'CLOSE_TEXTBOX',
   startTextInteraction: 'OPEN_TEXTBOX',
   sceneExit: 'SCENE_EXIT',
-  levelChange: 'LEVEL_CHANGE',
+  levelChanging: 'LEVEL_CHANGING',
+  levelChanged: 'LEVEL_CHANGED',
 };
 
 export const flags = {

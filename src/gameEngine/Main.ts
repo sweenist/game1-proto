@@ -42,7 +42,7 @@ export class Main extends GameObject {
 
     this.addChild(inventory);
 
-    gameEvents.on<Level>(signals.levelChange, this, (newLevel) => {
+    gameEvents.on<Level>(signals.levelChanging, this, (newLevel) => {
       console.info(`Leaving ${this.level?.constructor.name ?? 'None'}`);
       this.startFade(() => this.setLevel(newLevel));
       console.info(`Loading ${newLevel?.constructor.name ?? 'Error'}`);
@@ -156,6 +156,7 @@ export class Main extends GameObject {
       this.fadeDirection = 1;
       if (this.onFadeOutComplete) this.onFadeOutComplete();
       this.onFadeOutComplete = undefined;
+      gameEvents.emit<Level>(signals.levelChanged, this.level);
     } else if (this.fadeDirection === fadeIn && this.fadeAlpha >= 1) {
       this.fadeAlpha = fadeIn;
       this.isFading = false;
