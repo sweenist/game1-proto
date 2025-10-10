@@ -4,6 +4,7 @@ import { gameEvents } from '../gameEngine/Events';
 import { Level, type LevelParams } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { Exit } from '../objects/Exit';
+import Obstacle from '../objects/Obstacles/Obstacle';
 import { Rod } from '../objects/Rod/Rod';
 import { resources } from '../Resources';
 import { gridCells } from '../utils/grid';
@@ -25,11 +26,37 @@ export class OutdoorLevel extends Level {
       frameSize: new Vector2(360, 180),
     });
 
+    const treeTop = new Obstacle({
+      position: new Vector2(gridCells(13), gridCells(3)),
+      isSolid: false,
+      content: {
+        resource: resources.images['spritesheet'],
+        frameSize: new Vector2(16, 16),
+        frameColumns: 4,
+        frameRows: 5,
+        frameIndex: 12,
+        position: Vector2.Zero(),
+      },
+    });
+    const tree = new Obstacle({
+      position: new Vector2(gridCells(13), gridCells(4)),
+      content: {
+        resource: resources.images['spritesheet'],
+        frameSize: new Vector2(16, 16),
+        frameColumns: 4,
+        frameRows: 5,
+        frameIndex: 16,
+        position: Vector2.Zero(),
+      },
+    });
+
     const exit = new Exit(gridCells(6), gridCells(3));
     const hero = new Hero(this.actorPosition);
     const rod = new Rod(gridCells(12), gridCells(4));
 
     this.addChild(ground);
+    this.addChild(treeTop);
+    this.addChild(tree);
 
     this.addChild(exit);
     this.addChild(hero);
