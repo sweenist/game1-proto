@@ -35,6 +35,14 @@ export class CaveLevel extends Level {
 
     const knight1 = new Npc({
       position: new Vector2(gridCells(5), gridCells(5)),
+      body: {
+        resource: resources.images['knight'],
+        frameSize: new Vector2(32, 32),
+        frameColumns: 2,
+        frameRows: 1,
+        frameIndex: 1,
+        position: new Vector2(-8, -20),
+      },
       content: [
         {
           message: 'Yo. Be careful, eh?',
@@ -52,6 +60,14 @@ export class CaveLevel extends Level {
 
     const knight2 = new Npc({
       position: new Vector2(gridCells(2), gridCells(7)),
+      body: {
+        resource: resources.images['knight'],
+        frameSize: new Vector2(32, 32),
+        frameColumns: 2,
+        frameRows: 1,
+        frameIndex: 1,
+        position: new Vector2(-8, -20),
+      },
       content: [
         {
           message:

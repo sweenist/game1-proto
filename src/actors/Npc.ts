@@ -1,5 +1,5 @@
 import { GameObject } from '../gameEngine/GameObject';
-import { Sprite } from '../gameEngine/Sprite';
+import { Sprite, type SpriteParams } from '../gameEngine/Sprite';
 import { storyFlags } from '../gameEngine/StoryFlags';
 import { resources } from '../Resources';
 import type { DialogueScenario } from '../types';
@@ -7,6 +7,7 @@ import { Vector2 } from '../utils/vector';
 
 export interface NpcParams {
   position?: Vector2;
+  body: SpriteParams;
   content: DialogueScenario[];
 }
 
@@ -28,14 +29,7 @@ export class Npc extends GameObject {
     });
     this.addChild(this.shadow);
 
-    this.body = new Sprite({
-      resource: resources.images['knight'],
-      frameSize: new Vector2(32, 32),
-      frameColumns: 3,
-      frameRows: 8,
-      frameIndex: 1,
-      position: new Vector2(-8, -20),
-    });
+    this.body = new Sprite(params.body);
 
     this.addChild(this.body);
   }
