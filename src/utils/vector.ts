@@ -1,7 +1,12 @@
 import { DOWN, LEFT, RIGHT, UP } from '../constants';
 import type { Direction } from '../types';
 
-export class Vector2 {
+export interface Vector2Interface {
+  x: number;
+  y: number;
+}
+
+export class Vector2 implements Vector2Interface {
   x: number;
   y: number;
 
@@ -20,6 +25,10 @@ export class Vector2 {
 
   public static Zero(): Vector2 {
     return new Vector2(0, 0);
+  }
+
+  public static fromPoint(point: { x: number; y: number }): Vector2 {
+    return new Vector2(point.x, point.y);
   }
 
   /*

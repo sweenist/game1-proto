@@ -10,11 +10,13 @@ import { resources } from '../Resources';
 import { gridCells } from '../utils/grid';
 import { Vector2 } from '../utils/vector';
 import { CaveLevel } from './CaveLevel';
-import wallConfig from './config/outdoor.config.json';
+import levelConfig from './config/outdoor.config.json';
 
 export class OutdoorLevel extends Level {
   constructor(params: LevelParams) {
-    super(params, wallConfig);
+    super(params, levelConfig);
+
+    const { trees, resourceConfig } = levelConfig;
 
     this.background = new Sprite({
       resource: resources.images.sky,
@@ -25,6 +27,8 @@ export class OutdoorLevel extends Level {
       resource: resources.images.ground,
       frameSize: new Vector2(360, 180),
     });
+
+    this.buildMap(resourceConfig, trees);
 
     const treeTop = new Obstacle({
       position: new Vector2(gridCells(13), gridCells(3)),
