@@ -16,7 +16,7 @@ export class OutdoorLevel extends Level {
   constructor(params: LevelParams) {
     super(params, levelConfig);
 
-    const { trees, resourceConfig } = levelConfig;
+    const { trees, rocks, resourceConfig } = levelConfig;
 
     this.background = new Sprite({
       resource: resources.images.sky,
@@ -29,6 +29,7 @@ export class OutdoorLevel extends Level {
     });
 
     this.buildMap(resourceConfig, trees);
+    this.buildMap(resourceConfig, rocks);
 
     const treeTop = new Obstacle({
       position: new Vector2(gridCells(13), gridCells(3)),

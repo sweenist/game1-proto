@@ -48,6 +48,15 @@
       { "x": 208, "y": 64 }
     ]
   },
+  "rocks": {
+    "frameIndex": 18,
+    "imageName": "spritesheet",
+    "positions": [
+      { "x": 192, "y": 96 },
+      { "x": 208, "y": 96 },
+      { "x": 224, "y": 96 }
+    ]
+  },
   "resourceConfig": [
     {
       "name": "spritesheet",
