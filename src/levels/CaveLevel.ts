@@ -9,7 +9,7 @@ import { Rod } from '../objects/Rod/Rod';
 import { resources } from '../Resources';
 import { gridCells } from '../utils/grid';
 import { Vector2 } from '../utils/vector';
-import { OutdoorLevel } from './OutdoorLevel';
+import { OutdoorLevel } from './Overworld';
 import caveConfig from './config/cave.config.json';
 
 export class CaveLevel extends Level {

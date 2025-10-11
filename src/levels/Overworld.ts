@@ -10,7 +10,7 @@ import { resources } from '../Resources';
 import { gridCells } from '../utils/grid';
 import { Vector2 } from '../utils/vector';
 import { CaveLevel } from './CaveLevel';
-import levelConfig from './config/outdoor.config.json';
+import levelConfig from './config/overworld.config.json';
 
 export class OutdoorLevel extends Level {
   constructor(params: LevelParams) {
