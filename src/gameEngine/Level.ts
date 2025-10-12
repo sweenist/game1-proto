@@ -55,7 +55,7 @@ export class Level extends GameObject {
     });
   }
 
-  buildMap(config: ResourceConfig[], params: GameObjectParams) {
+  layoutObstacles(config: ResourceConfig[], params: GameObjectParams) {
     const res = config.find((r) => r.name === params.imageName);
     if (!res) {
       throw `Cannot find ${params.imageName} in resources`;

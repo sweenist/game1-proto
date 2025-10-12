@@ -28,8 +28,8 @@ export class OutdoorLevel extends Level {
       frameSize: new Vector2(360, 180),
     });
 
-    this.buildMap(resourceConfig, trees);
-    this.buildMap(resourceConfig, rocks);
+    this.layoutObstacles(resourceConfig, trees);
+    this.layoutObstacles(resourceConfig, rocks);
 
     const treeTop = new Obstacle({
       position: new Vector2(gridCells(13), gridCells(3)),
@@ -43,17 +43,6 @@ export class OutdoorLevel extends Level {
         position: Vector2.Zero(),
       },
     });
-    const tree = new Obstacle({
-      position: new Vector2(gridCells(13), gridCells(4)),
-      content: {
-        resource: resources.images['spritesheet'],
-        frameSize: new Vector2(16, 16),
-        frameColumns: 4,
-        frameRows: 5,
-        frameIndex: 16,
-        position: Vector2.Zero(),
-      },
-    });
 
     const exit = new Exit(gridCells(6), gridCells(3));
     const hero = new Hero(this.actorPosition);
@@ -61,7 +50,6 @@ export class OutdoorLevel extends Level {
 
     this.addChild(ground);
     this.addChild(treeTop);
-    this.addChild(tree);
 
     this.addChild(exit);
     this.addChild(hero);

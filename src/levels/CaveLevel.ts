@@ -11,6 +11,7 @@ import { gridCells } from '../utils/grid';
 import { Vector2 } from '../utils/vector';
 import { OutdoorLevel } from './Overworld';
 import caveConfig from './config/cave.config.json';
+import { CustomLevel } from './CustomLevel';
 
 export class CaveLevel extends Level {
   constructor(params: LevelParams) {
@@ -28,7 +29,12 @@ export class CaveLevel extends Level {
     this.addChild(ground);
 
     const exit = new Exit(gridCells(3), gridCells(5));
+    exit.name = 'original-exit';
     this.addChild(exit);
+
+    const exit2 = new Exit(gridCells(7), gridCells(3));
+    exit2.name = 'custom-exit';
+    this.addChild(exit2);
 
     const hero = new Hero(this.actorPosition);
     this.addChild(hero);
@@ -90,12 +96,16 @@ export class CaveLevel extends Level {
   }
 
   ready(): void {
-    gameEvents.on(signals.sceneExit, this, () => {
+    gameEvents.on<string>(signals.sceneExit, this, (value) => {
       gameEvents.emit(
         signals.levelChanging,
-        new OutdoorLevel({
-          actorPosition: new Vector2(gridCells(6), gridCells(4)),
-        })
+        value === 'original-exit'
+          ? new OutdoorLevel({
+              actorPosition: new Vector2(gridCells(6), gridCells(4)),
+            })
+          : new CustomLevel({
+              actorPosition: new Vector2(gridCells(3), gridCells(5)),
+            })
       );
     });
   }

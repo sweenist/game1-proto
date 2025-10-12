@@ -24,7 +24,7 @@ export class Exit extends GameObject {
         const heroPosition = value as Vector2;
 
         if (heroPosition.prettyClose(this.position)) {
-          gameEvents.emit(signals.sceneExit);
+          gameEvents.emit(signals.sceneExit, this.name);
           gameEvents.off(this.exitId!);
         }
       }

@@ -13,6 +13,7 @@ class Resources {
     this.toLoad = {
       caveBackground: 'sprites/cave.png',
       caveForeground: 'sprites/cave-ground.png',
+      customOverworld: 'sprites/overworld.png',
       exit: 'sprites/exit.png',
       fontWhite: 'sprites/sprite-font-white.png',
       ground: 'sprites/ground.png',
