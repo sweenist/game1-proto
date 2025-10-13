@@ -24,6 +24,7 @@ export class Sprite extends GameObject {
   frameMap: Map<number, Vector2> = new Map();
   scale: number;
   animations?: Animations | null;
+  isVisible: boolean = true;
 
   constructor(params: SpriteParams) {
     super(params.position); // relative offset
@@ -86,16 +87,17 @@ export class Sprite extends GameObject {
         `Sprite: ${this.name} -> size: ${frameSizeX}, ${frameSizeY}; pos: ${frameCoordX}, ${frameCoordY}`
       );
 
-    ctx.drawImage(
-      this.resource.image,
-      frameCoordX,
-      frameCoordY,
-      frameSizeX,
-      frameSizeY,
-      x + this.position.x,
-      y + this.position.y,
-      frameSizeX * this.scale,
-      frameSizeY * this.scale
-    );
+    if (this.isVisible)
+      ctx.drawImage(
+        this.resource.image,
+        frameCoordX,
+        frameCoordY,
+        frameSizeX,
+        frameSizeY,
+        x + this.position.x,
+        y + this.position.y,
+        frameSizeX * this.scale,
+        frameSizeY * this.scale
+      );
   }
 }

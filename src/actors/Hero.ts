@@ -112,6 +112,10 @@ export class Hero extends GameObject {
       }
     }
 
+    if (input.getActionJustPressed('KeyH')) {
+      this.body.isVisible = !this.body.isVisible;
+    }
+
     const distance = moveTowards(this.position, this.destinationPosition, 1);
     const hasArrived = distance < 1;
     if (hasArrived) {

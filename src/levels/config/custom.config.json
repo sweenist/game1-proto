@@ -91,6 +91,14 @@
         "columns": 6,
         "rows": 5
       }
+    },
+    {
+      "name": "custom2",
+      "frameConfig": {
+        "size": { "x": 16, "y": 16 },
+        "columns": 5,
+        "rows": 3
+      }
     }
   ]
 }

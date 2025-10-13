@@ -1,5 +1,10 @@
 import { Hero } from '../actors/Hero';
-import { Level, type LevelParams } from '../gameEngine/Level';
+import {
+  Level,
+  type FrameConfig,
+  type LevelParams,
+  type ResourceConfig,
+} from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { resources } from '../Resources';
 import { gridCells } from '../utils/grid';
@@ -7,13 +12,43 @@ import { Vector2 } from '../utils/vector';
 import mapContent from './config/overworld.txt?raw';
 import levelConfig from './config/custom.config.json';
 
+type tempType = {
+  name: string;
+  frameIndex: number;
+};
+
 export class CustomLevel extends Level {
   mapAddresses: number[] = [];
+  fancyMap: tempType[] = [
+    { name: 'custom2', frameIndex: 0 },
+    { name: 'custom2', frameIndex: 1 },
+    { name: 'custom2', frameIndex: 2 },
+    { name: 'customOverworld', frameIndex: 3 },
+    { name: 'customOverworld', frameIndex: 4 },
+    { name: 'customOverworld', frameIndex: 5 },
+    { name: 'custom2', frameIndex: 9 },
+    { name: 'custom2', frameIndex: 4 },
+    { name: 'custom2', frameIndex: 8 },
+    { name: 'customOverworld', frameIndex: 9 },
+    { name: 'customOverworld', frameIndex: 10 },
+    { name: 'customOverworld', frameIndex: 11 },
+    { name: 'customOverworld', frameIndex: 12 },
+    { name: 'customOverworld', frameIndex: 13 },
+    { name: 'customOverworld', frameIndex: 14 },
+    { name: 'customOverworld', frameIndex: 15 },
+    { name: 'customOverworld', frameIndex: 16 },
+    { name: 'customOverworld', frameIndex: 17 },
+    { name: 'custom2', frameIndex: 6 },
+    { name: 'custom2', frameIndex: 3 },
+    { name: 'custom2', frameIndex: 10 },
+    { name: 'custom2', frameIndex: 2 },
+    { name: 'custom2', frameIndex: 11 },
+    { name: 'custom2', frameIndex: 12 },
+    { name: 'custom2', frameIndex: 12 },
+  ];
 
   constructor(params: LevelParams) {
     super({ actorPosition: new Vector2(gridCells(3), gridCells(8)) });
-
-    this.buildMap('customOverworld', 6, 5);
 
     const {
       treeA,
@@ -26,6 +61,8 @@ export class CustomLevel extends Level {
       rockD,
       resourceConfig,
     } = levelConfig;
+
+    this.buildMap(resourceConfig);
 
     this.layoutObstacles(resourceConfig, treeA);
     this.layoutObstacles(resourceConfig, treeB);
@@ -41,7 +78,7 @@ export class CustomLevel extends Level {
     this.addChild(hero);
   }
 
-  buildMap(imageName: string, frameColumns: number, frameRows: number) {
+  buildMap(config: ResourceConfig[]) {
     const lines = mapContent.split('\n');
     const columns = lines[0].split(',').length;
     const rows = lines.length;
@@ -55,12 +92,16 @@ export class CustomLevel extends Level {
 
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < columns; x++) {
+        const mapTile = this.mapAddresses[y * columns + x];
+        const tilecfg = this.fancyMap[mapTile];
+        const fc = config.find((c) => c.name === tilecfg.name);
+        if (!fc) continue;
         const tile = new Sprite({
-          resource: resources.images[imageName],
-          frameColumns,
-          frameRows,
-          frameSize: new Vector2(16, 16),
-          frameIndex: this.mapAddresses[y * columns + x],
+          resource: resources.images[tilecfg.name],
+          frameColumns: fc?.frameConfig.columns,
+          frameRows: fc?.frameConfig.rows,
+          frameSize: Vector2.fromPoint(fc?.frameConfig.size),
+          frameIndex: tilecfg.frameIndex,
           position: new Vector2(gridCells(x), gridCells(y)),
         });
         console.info(

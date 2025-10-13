@@ -14,6 +14,7 @@ class Resources {
       caveBackground: 'sprites/cave.png',
       caveForeground: 'sprites/cave-ground.png',
       customOverworld: 'sprites/overworld.png',
+      custom2: 'sprites/grasspath.png',
       exit: 'sprites/exit.png',
       fontWhite: 'sprites/sprite-font-white.png',
       ground: 'sprites/ground.png',
