@@ -26,6 +26,8 @@ export class Main extends GameObject {
   fadeAlpha: number = 0;
   fadeDirection: fader = fadeIn;
   isFading: boolean = false;
+  isDesaturating: boolean = false;
+  desaturationAlpha: number = 0;
   onFadeOutComplete?: () => void;
 
   constructor(params: MainGameParams) {
@@ -93,33 +95,45 @@ export class Main extends GameObject {
   stepEntry(deltaTime: number, root: Main): void {
     super.stepEntry(deltaTime, root);
 
+    if (this.input.getActionJustPressed('KeyG')) {
+      if (this.isDesaturating) {
+        this.isDesaturating = false;
+        console.info('Stop desaturation');
+      } else {
+        this.desaturationAlpha = 10;
+        this.isDesaturating = true;
+        console.info('desaturating');
+      }
+    }
+
     if (this.isFading) this.updateFade(deltaTime);
+    if (this.isDesaturating) this.updateDesaturation(deltaTime);
   }
 
   drawBackground(ctx: CanvasRenderingContext2D) {
     if (this.level?.background) {
-      // if (this.isFading) {
-      //   ctx.save();
-      //   ctx.filter = `saturate(${100 - this.fadeAlpha * 100}%)`;
-      //   this.level.background.draw(ctx, 0, 0);
-      //   ctx.restore();
-      // } else {
-      this.level.background.draw(ctx, 0, 0);
-      // }
+      if (this.isDesaturating) {
+        ctx.save();
+        ctx.filter = `saturate(${100 - this.desaturationAlpha}%)`;
+        this.level.background.draw(ctx, 0, 0);
+        ctx.restore();
+      } else {
+        this.level.background.draw(ctx, 0, 0);
+      }
     }
   }
 
   drawObjects(ctx: CanvasRenderingContext2D) {
     this.children.forEach((child) => {
       if (child.drawLayer !== 'USER_INTERFACE') {
-        // if (this.isFading && !(child instanceof Hero)) {
-        //   ctx.save();
-        //   ctx.filter = `saturate(${100 - (this.fadeAlpha * 100)}%)`;
-        //   child.draw(ctx, 0, 0);
-        //   ctx.restore();
-        // } else {
-        child.draw(ctx, 0, 0);
-        // }
+        if (this.isDesaturating && !(child instanceof Hero)) {
+          ctx.save();
+          ctx.filter = `saturate(${100 - this.desaturationAlpha}%)`;
+          child.draw(ctx, 0, 0);
+          ctx.restore();
+        } else {
+          child.draw(ctx, 0, 0);
+        }
       }
     });
   }
@@ -161,5 +175,13 @@ export class Main extends GameObject {
       this.fadeAlpha = fadeIn;
       this.isFading = false;
     }
+  }
+
+  updateDesaturation(deltaTime: number) {
+    if (this.desaturationAlpha < 100) {
+      this.desaturationAlpha += deltaTime * 0.5;
+      console.info(this.desaturationAlpha);
+    }
+    if (this.desaturationAlpha > 100) this.desaturationAlpha = 100;
   }
 }
