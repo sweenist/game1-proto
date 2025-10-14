@@ -1,6 +1,6 @@
 import { Hero } from '../actors/Hero';
-import { signals } from '../constants';
-import { gameEvents } from '../gameEngine/Events';
+import { signals } from '../events/eventConstants';
+import { gameEvents } from '../events/Events';
 import { Level, type LevelParams } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { Exit } from '../objects/Exit';

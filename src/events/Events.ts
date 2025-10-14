@@ -1,5 +1,5 @@
-import { signals } from '../constants';
-import type { GameObject } from './GameObject';
+import { signals } from './eventConstants';
+import type { GameObject } from '../gameEngine/GameObject';
 
 interface Subscription<T> {
   id: number;

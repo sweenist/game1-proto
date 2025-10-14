@@ -19,11 +19,11 @@ import {
   PICK_UP_DOWN,
 } from './heroAnimations';
 import { moveTowards } from '../utils/moveUtils';
-import { gameEvents } from '../gameEngine/Events';
-import { signals } from '../constants';
+import { gameEvents } from '../events/Events';
 import type { ItemEventMetaData } from '../types/eventTypes';
 import type { Main } from '../gameEngine/Main';
 import type { Direction } from '../types';
+import { signals } from '../events/eventConstants';
 
 export class Hero extends GameObject {
   facingDirection: Direction;

@@ -1,5 +1,5 @@
 import { Vector2 } from '../utils/vector';
-import { gameEvents } from './Events';
+import { gameEvents } from '../events/Events';
 import type { Main } from './Main';
 
 export class GameObject {

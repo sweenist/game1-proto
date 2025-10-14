@@ -1,7 +1,7 @@
 import { Hero } from '../actors/Hero';
 import { Npc } from '../actors/Npc';
-import { flags, signals } from '../constants';
-import { gameEvents } from '../gameEngine/Events';
+import { flags } from '../constants';
+import { gameEvents } from '../events/Events';
 import { Level, type LevelParams } from '../gameEngine/Level';
 import { Sprite } from '../gameEngine/Sprite';
 import { Exit } from '../objects/Exit';
@@ -12,6 +12,7 @@ import { Vector2 } from '../utils/vector';
 import { OutdoorLevel } from './Overworld';
 import caveConfig from './config/cave.config.json';
 import { CustomLevel } from './CustomLevel';
+import { signals } from '../events/eventConstants';
 
 export class CaveLevel extends Level {
   constructor(params: LevelParams) {

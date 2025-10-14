@@ -2,8 +2,8 @@ import { Vector2 } from '../utils/vector';
 import { GameObject } from '../gameEngine/GameObject';
 import { Sprite } from '../gameEngine/Sprite';
 import { resources, type ImageResource } from '../Resources';
-import { gameEvents } from '../gameEngine/Events';
-import { signals } from '../constants';
+import { gameEvents } from '../events/Events';
+import { signals } from '../events/eventConstants';
 
 type InventoryItem = {
   id: number;

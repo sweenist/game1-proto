@@ -1,5 +1,5 @@
-import { signals } from '../constants';
-import { gameEvents } from '../gameEngine/Events';
+import { signals } from '../events/eventConstants';
+import { gameEvents } from '../events/Events';
 import { GameObject } from '../gameEngine/GameObject';
 import { Sprite } from '../gameEngine/Sprite';
 import { resources } from '../Resources';

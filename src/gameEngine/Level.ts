@@ -1,6 +1,6 @@
 import { GameObject } from './GameObject';
 import type { Sprite } from './Sprite';
-import { gameEvents } from './Events';
+import { gameEvents } from '../events/Events';
 import { type Vector2Interface, Vector2 } from '../utils/vector';
 import Obstacle from '../objects/Obstacles/Obstacle';
 import { resources } from '../Resources';

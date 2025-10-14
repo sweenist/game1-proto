@@ -1,8 +1,8 @@
-import { signals } from '../constants';
-import { gameEvents } from './Events';
+import { gameEvents } from '../events/Events';
 import { GameObject } from './GameObject';
 import { Vector2 } from '../utils/vector';
 import { Level } from './Level';
+import { signals } from '../events/eventConstants';
 
 export class Camera extends GameObject {
   canvas: HTMLCanvasElement;

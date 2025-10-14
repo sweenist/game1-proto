@@ -1,10 +1,10 @@
 import type { ItemEventMetaData } from '../../types/eventTypes';
-import { signals } from '../../constants';
-import { gameEvents } from '../../gameEngine/Events';
+import { gameEvents } from '../../events/Events';
 import { GameObject } from '../../gameEngine/GameObject';
 import { Sprite } from '../../gameEngine/Sprite';
 import { resources } from '../../Resources';
 import { Vector2 } from '../../utils/vector';
+import { signals } from '../../events/eventConstants';
 
 export class Rod extends GameObject {
   sprite: Sprite;

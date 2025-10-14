@@ -1,16 +1,17 @@
 import { Hero } from '../actors/Hero';
 import { Npc } from '../actors/Npc';
-import { signals, fadeIn, fadeOut } from '../constants';
+import { fadeIn, fadeOut } from '../constants';
 import { Inventory } from '../menu/Inventory';
 import { SpriteText } from '../objects/TextBox/SpriteText';
 import type { fader } from '../types';
 import { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
-import { gameEvents } from './Events';
+import { gameEvents } from '../events/Events';
 import { GameInput } from './GameInput';
 import { GameObject } from './GameObject';
 import { Level } from './Level';
 import { storyFlags } from './StoryFlags';
+import { signals } from '../events/eventConstants';
 
 export interface MainGameParams {
   ctx: CanvasRenderingContext2D;
