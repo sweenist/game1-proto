@@ -62,8 +62,7 @@ export class Sprite extends GameObject {
 
   draw(
     ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
+    position: Vector2,
     debug: boolean = false
   ) {
     if (!this.resource.loaded) {
@@ -81,6 +80,7 @@ export class Sprite extends GameObject {
 
     const frameSizeX = this.frameSize.x;
     const frameSizeY = this.frameSize.y;
+    const drawPosition = position.add(this.position);
 
     if (debug)
       console.debug(
@@ -94,8 +94,8 @@ export class Sprite extends GameObject {
         frameCoordY,
         frameSizeX,
         frameSizeY,
-        x + this.position.x,
-        y + this.position.y,
+        drawPosition.x,
+        drawPosition.y,
         frameSizeX * this.scale,
         frameSizeY * this.scale
       );

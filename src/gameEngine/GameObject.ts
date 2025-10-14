@@ -34,17 +34,15 @@ export class GameObject {
 
   draw(
     ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
+    position: Vector2,
     _debug: boolean = false
   ) {
-    const drawPosX = x + this.position.x;
-    const drawPosY = y + this.position.y;
+    const drawPosition = position.add(this.position);
 
-    this.drawImage(ctx, drawPosX, drawPosY);
+    this.drawImage(ctx, drawPosition);
 
     this.getOrderedDrawSprites().forEach((child) =>
-      child.draw(ctx, drawPosX, drawPosY)
+      child.draw(ctx, drawPosition)
     );
   }
 
@@ -57,8 +55,7 @@ export class GameObject {
 
   drawImage(
     _ctx: CanvasRenderingContext2D,
-    _x: number,
-    _y: number,
+    _position: Vector2,
     debug: boolean = false
   ) {
     // override

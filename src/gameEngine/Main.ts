@@ -4,7 +4,7 @@ import { signals, fadeIn, fadeOut } from '../constants';
 import { Inventory } from '../menu/Inventory';
 import { SpriteText } from '../objects/TextBox/SpriteText';
 import type { fader } from '../types';
-import type { Vector2 } from '../utils/vector';
+import { Vector2 } from '../utils/vector';
 import { Camera } from './Camera';
 import { gameEvents } from './Events';
 import { GameInput } from './GameInput';
@@ -115,10 +115,10 @@ export class Main extends GameObject {
       if (this.isDesaturating) {
         ctx.save();
         ctx.filter = `saturate(${100 - this.desaturationAlpha}%)`;
-        this.level.background.draw(ctx, 0, 0);
+        this.level.background.draw(ctx, Vector2.Zero());
         ctx.restore();
       } else {
-        this.level.background.draw(ctx, 0, 0);
+        this.level.background.draw(ctx, Vector2.Zero());
       }
     }
   }
@@ -129,10 +129,10 @@ export class Main extends GameObject {
         if (this.isDesaturating && !(child instanceof Hero)) {
           ctx.save();
           ctx.filter = `saturate(${100 - this.desaturationAlpha}%)`;
-          child.draw(ctx, 0, 0);
+          child.draw(ctx, Vector2.Zero());
           ctx.restore();
         } else {
-          child.draw(ctx, 0, 0);
+          child.draw(ctx, Vector2.Zero());
         }
       }
     });
@@ -141,7 +141,7 @@ export class Main extends GameObject {
   drawForeground(ctx: CanvasRenderingContext2D) {
     this.children.forEach((child) => {
       if (child.drawLayer === 'USER_INTERFACE') {
-        child.draw(ctx, 0, 0);
+        child.draw(ctx, Vector2.Zero());
       }
     });
 

@@ -97,30 +97,27 @@ export class SpriteText extends GameObject {
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D, x: number, y: number): void {
-    const positionOffset = new Vector2(
-      x + this.position.x,
-      y + this.position.y
-    );
-    this.backdrop.draw(ctx, positionOffset.x, positionOffset.y);
-    this.drawImage(ctx, positionOffset.x, positionOffset.y);
+  draw(ctx: CanvasRenderingContext2D, position: Vector2): void {
+    const positionOffset = position.add(this.position);
+    this.backdrop.draw(ctx, positionOffset);
+    this.drawImage(ctx, positionOffset);
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  drawImage(ctx: CanvasRenderingContext2D, position: Vector2): void {
     const PADDING_LEFT = this.portrait ? 27 : 7;
     const PADDING_TOP = this.portrait ? 9 : 7;
     const LINE_MAX_WIDTH = 240;
     const LINE_VERTICAL_HEIGHT = 14;
 
-    let cursorX = x + PADDING_LEFT;
-    let cursorY = y + PADDING_TOP;
+    let cursorX = position.x + PADDING_LEFT;
+    let cursorY = position.y + PADDING_TOP;
     let currentShowIndex = 0;
 
     this.words.forEach((word) => {
-      const spaceRemaining = x + LINE_MAX_WIDTH - cursorX;
+      const spaceRemaining = position.x + LINE_MAX_WIDTH - cursorX;
       if (spaceRemaining < word.wordWidth) {
         cursorY += LINE_VERTICAL_HEIGHT;
-        cursorX = x + PADDING_LEFT;
+        cursorX = position.x + PADDING_LEFT;
       }
       word.chars.forEach((char) => {
         if (currentShowIndex > this.showingIndex) return;
@@ -128,7 +125,8 @@ export class SpriteText extends GameObject {
         const { width, sprite } = char;
         const widthCharOffset = cursorX - 5;
 
-        sprite.draw(ctx, widthCharOffset, cursorY);
+        const drawPosition = new Vector2(widthCharOffset, cursorY);
+        sprite.draw(ctx, drawPosition);
 
         cursorX += width + 1;
         currentShowIndex += 1;
@@ -137,7 +135,8 @@ export class SpriteText extends GameObject {
       cursorX += 3;
     });
     if (this.portrait) {
-      this.portrait.draw(ctx, x + 7, y + 7);
+      const portraitPosition = new Vector2(position.x + 7, position.y + 7);
+      this.portrait.draw(ctx, portraitPosition);
     }
   }
 }
