@@ -104,7 +104,7 @@
       "name": "custom3",
       "frameConfig": {
         "size": { "x": 16, "y": 16 },
-        "columns": 3,
+        "columns": 5,
         "rows": 3
       }
     }
