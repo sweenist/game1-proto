@@ -19,6 +19,10 @@ export class Vector2 implements Vector2Interface {
     return new Vector2(this.x, this.y);
   }
 
+  add(addend: Vector2) {
+    return new Vector2(this.x + addend.x, this.y + addend.y);
+  }
+
   public toString(): string {
     return `x: ${this.x}, y: ${this.y}`;
   }

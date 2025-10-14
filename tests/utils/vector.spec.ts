@@ -16,4 +16,14 @@ describe('Vector2', () => {
 
     expect(target).toBe('x: 80, y: 98');
   });
+
+  it('should add two vectors together', () => {
+    const augend = new Vector2(33, 47);
+    const addend = new Vector2(19, 100);
+
+    const sum = augend.add(addend);
+
+    expect(sum.x).toBe(52);
+    expect(sum.y).toBe(147);
+  });
 });
