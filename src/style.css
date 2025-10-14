@@ -6,12 +6,7 @@ body {
   image-rendering: pixelated;
 }
 
-canvas {
+#game-canvas {
   width: 100%;
   background-color: cyan;
-}
-
-@font-face {
-  font-family: fontRetroGaming;
-  src: url('fonts/Retro Gaming.ttf');
 }
