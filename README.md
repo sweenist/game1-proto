@@ -9,6 +9,9 @@ The **typsecript-game-engine-template** repo is a template repo and can be used 
 - Map transitions
 - title rendering from configuration
 - NPC dialog
+- `Hero` movable with arrow/WASD keys
+- Space bar for interactions
+- Static `Camera` tracks `Hero`
 
 ## Roadmap:
 
